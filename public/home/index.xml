@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homes on temperancee&#39;s hovel</title>
+    <link>/home/</link>
+    <description>temperancee&#39;s hovel (Homes)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+      
+
+      
+    
+
+    
+    <lastBuildDate>Wed, 18 Jun 2025 19:34:41 +0100</lastBuildDate>
+    
+    <atom:link href="/home/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Welcome</title>
+      <link>/home/home/</link>
+      <pubDate>Wed, 18 Jun 2025 19:34:41 +0100</pubDate>
+      
+      <guid>/home/home/</guid>
+      <description>&lt;h1 id=&#34;nothing&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#nothing&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Nothing
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;what&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

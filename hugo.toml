@@ -1,0 +1,53 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-gb'
+title = "temperancee's hovel"
+theme = 'anubis2'
+enableEmoji = true
+
+
+[pagination]
+pagerSize = 5
+
+[params.author]
+name = "temperancee"
+
+[params.anubis2]
+    enableMathGlobally = true
+    enableCopyCodeButton = true
+    enableColorThemeSwitcher = true
+    enableReadMoreButton = true
+
+    social = [
+        { id = "github", url = "https://github.com/temperancee" },
+        { id = "youtube", url = "https://youtube.com/@temperanceeeee" }
+    ]
+
+[[menu.main]]
+identifier = "home"
+name = "home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+identifier = "about"
+name = "about"
+url = "/about/"
+weight = 2
+
+[[menu.main]]
+identifier = "projects"
+name = "projects"
+url = "/projects/"
+weight = 3
+
+[[menu.main]]
+name = "blog"
+identifier = "blog"
+url = "/blog/"
+weight = 4
+
+[markup.goldmark.renderer]
+unsafe = true # Enable unsafe mode to have a better experience
+
+[markup.highlight]
+style              = 'catppuccin-frappe' # Find more style at here: https://swapoff.org/chroma/playground/

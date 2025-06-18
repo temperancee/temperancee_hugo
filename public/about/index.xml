@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on temperancee&#39;s hovel</title>
+    <link>/about/</link>
+    <description>temperancee&#39;s hovel (Abouts)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+      
+
+      
+    
+
+    
+    <lastBuildDate>Wed, 18 Jun 2025 19:46:13 +0100</lastBuildDate>
+    
+    <atom:link href="/about/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>/about/about/</link>
+      <pubDate>Wed, 18 Jun 2025 19:46:13 +0100</pubDate>
+      
+      <guid>/about/about/</guid>
+      <description>&lt;p&gt;My name is Myles, but I&amp;rsquo;m floating temperancee as my latest (and greatest) screen name.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m a third year mathematics student who spends his time building robots and programming things (like robots, but not &lt;em&gt;just&lt;/em&gt; robots).&lt;/p&gt;
+&lt;p&gt;On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, Vim, Linux, maths, and whatever else.&lt;/p&gt;
+&lt;p&gt;Enjoy your stay.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
