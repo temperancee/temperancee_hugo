@@ -6,16 +6,30 @@ title = 'Micropython X Neovim'
 
 As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won't cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.
 
-## Reader prerequistes
+# Reader prerequistes
 
-- An nvim setup
-- Understand LSP in Neovim
-- Understand Python virtual environments
+- A Neovim setup
+- Understanding of LSPs in Neovim
+- Understanding of Python virtual environments
 - Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)
 
 # Neovim LSP 
 
-First, get pyright, but then, we need something else too probably.
+There are many LSPs for Python, some of which you can read about by opening Neovim and running ":h lspconfig-all", to see the detailed list of all the LSPs for Neovim (note you need the [lspconfig plugin](https://github.com/neovim/nvim-lspconfig) to see this).
+
+I use Pyright, which works pretty well, and I think is the most popular one. If you use Mason, you can download it with that, or if you're on Arch like me, a simple
+```shell
+sudo pacman -S pyright
+```
+will suffice.
+
+### The upsetting nature of Micropython
+
+There is no LSP for Micropython, which makes sense - it is, after all, essentially identical to the standard CPython implementation, just with some different libraries. When we import Micropython libraries, which exist on the device running Micropython, they run fine, but give us errors in our editor, because our editor cannot see these libraries, since they don't exist on our PC/Laptop.
+
+I'm under the impression (backed up by [this post](https://stackoverflow.com/questions/62548091/why-cant-vscode-load-micropython-machine)) that the only way to get around this would be to create libraries that implement all the classes, methods, etc. of the Micropython libraries on our local machine. As referenced in that post, you can see an example of that in this [Github repository for the ESP32](https://github.com/tflander/esp32-machine-emulator). By the looks of it, that repository isn't complete, but I haven't used it myself. 
+
+My current """solution""" to this issue is simply ignoring it. It doesn't cause any issues in running the code, it's just kind of annoying.
 
 # Micropython without Thonny/VSCode
 
