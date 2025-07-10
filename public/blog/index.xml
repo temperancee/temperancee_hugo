@@ -2,25 +2,141 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on temperancee&#39;s hovel</title>
-    <link>https://example.org/blog/</link>
-    <description>Recent content in Blogs on temperancee&#39;s hovel</description>
-    <generator>Hugo</generator>
+    <link>/blog/</link>
+    <description>temperancee&#39;s hovel (Blogs)</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
+    
+      
+
+      
+    
+
+    
     <lastBuildDate>Tue, 08 Jul 2025 22:23:51 +0100</lastBuildDate>
-    <atom:link href="https://example.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Micropython X Neovim</title>
-      <link>https://example.org/blog/micropython_x_neovim/</link>
+      <link>/blog/micropython_x_neovim/</link>
       <pubDate>Tue, 08 Jul 2025 22:23:51 +0100</pubDate>
-      <guid>https://example.org/blog/micropython_x_neovim/</guid>
-      <description>&lt;p&gt;As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&amp;rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.&lt;/p&gt;&#xA;&lt;h2 id=&#34;reader-prerequistes&#34;&gt;Reader prerequistes&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An nvim setup&lt;/li&gt;&#xA;&lt;li&gt;Understand LSP in Neovim&lt;/li&gt;&#xA;&lt;li&gt;Understand Python virtual environments&lt;/li&gt;&#xA;&lt;li&gt;Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;neovim-lsp&#34;&gt;Neovim LSP&lt;/h1&gt;&#xA;&lt;p&gt;First, get pyright, but then, we need something else too probably.&lt;/p&gt;</description>
+      
+      <guid>/blog/micropython_x_neovim/</guid>
+      <description>&lt;p&gt;As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&amp;rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.&lt;/p&gt;
+&lt;h2 id=&#34;reader-prerequistes&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#reader-prerequistes&#34;&gt;
+        #
+    &lt;/a&gt;
+    Reader prerequistes
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;An nvim setup&lt;/li&gt;
+&lt;li&gt;Understand LSP in Neovim&lt;/li&gt;
+&lt;li&gt;Understand Python virtual environments&lt;/li&gt;
+&lt;li&gt;Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;neovim-lsp&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#neovim-lsp&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Neovim LSP
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;First, get pyright, but then, we need something else too probably.&lt;/p&gt;
+&lt;h1 id=&#34;micropython-without-thonnyvscode&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#micropython-without-thonnyvscode&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Micropython without Thonny/VSCode
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you&amp;rsquo;re lucky, they might show you how to use VSCode (although I&amp;rsquo;ve only seen this for RP2040 based boards). If you search for long enough however, you may be lucky enough to learn about &lt;code&gt;rshell&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is a command line utility that allows you to run commands on your board running Micropython. For full details, see its &lt;a href=&#34;https://github.com/dhylands/rshell&#34;&gt;github&lt;/a&gt;. In this section, I&amp;rsquo;m just going to cover uploading and running files.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is installed through &lt;code&gt;pip&lt;/code&gt;, which means you&amp;rsquo;ll (ideally, at least) have to set up a &lt;code&gt;venv&lt;/code&gt; to use it. If you don&amp;rsquo;t know what a &lt;code&gt;venv&lt;/code&gt; (Virtual Environment) is, take a look at &lt;a href=&#34;https://docs.python.org/3/library/venv.html&#34;&gt;the docs&lt;/a&gt; (I should probably provide a summary here).&lt;/p&gt;
+&lt;h2 id=&#34;uploading-code&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#uploading-code&#34;&gt;
+        #
+    &lt;/a&gt;
+    Uploading Code
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Micropython only runs programs on start-up when you copy them onto the board and name them &lt;code&gt;main.py&lt;/code&gt;. To accomplish this, open a terminal, make sure &lt;code&gt;rshell&lt;/code&gt; is installed and your &lt;code&gt;venv&lt;/code&gt; is active, then run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# rshell -p /dev/ttyACM0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;which will put you into &lt;code&gt;rshell&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;From here, we need to copy over our program to the board. Files on the board are stored under &lt;code&gt;/pyboard/&lt;/code&gt;, and you can see files on your system with &lt;code&gt;ls&lt;/code&gt;, just like in a normal shell. Bringing this together:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; cp my_program.py /pyboard/main.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And just like that, your program is on your board! Reset your board and it&amp;rsquo;ll start running.&lt;/p&gt;
+&lt;h2 id=&#34;debugging-printing&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#debugging-printing&#34;&gt;
+        #
+    &lt;/a&gt;
+    &amp;ldquo;Debugging&amp;rdquo; (Printing)
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;I am not particularly well versed in the art of debugging tools - I&amp;rsquo;m still at the stage where print statements here and there typically get the job done. As such, this section is pretty much just dedicated to allowing you to see the printed output of your programs.&lt;/p&gt;
+&lt;p&gt;We once again make use of &lt;code&gt;rshell&lt;/code&gt;. The trick here is to give your program an explicit main function. In Python, that is done via&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#8caaee&#34;&gt;main&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# Your main function (doesn&amp;#39;t actually have to be called main)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    main()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This little line makes it so that &lt;code&gt;main()&lt;/code&gt; is run when you run your program. The benefit of this is that if someone imports your code, their namespace is not polluted with all of your global variables (which you can instead put inside main(), although, you needn&amp;rsquo;t put all your globals in there). There may also be other benefits, but I couldn&amp;rsquo;t find the PEP that outlines why it&amp;rsquo;s good to do this&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Anyway, for our purposes, the reason we do this is that it allows us to copy our code to &lt;code&gt;/pyboard/main.py&lt;/code&gt;, open up the &lt;code&gt;rshell&lt;/code&gt; REPL, and do the following:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;&amp;gt; from main import *
+&amp;gt;&amp;gt; main()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;which will run our main function, and thus, the whole python script, directing ouputs into the REPL for us to see!&lt;/p&gt;
+</description>
     </item>
+    
     <item>
       <title>The classic first blog post, a note on this website</title>
-      <link>https://example.org/blog/this_website/</link>
+      <link>/blog/this_website/</link>
       <pubDate>Mon, 16 Jun 2025 20:38:56 +0100</pubDate>
-      <guid>https://example.org/blog/this_website/</guid>
-      <description>&lt;p&gt;A little spiel on how and why I made this website.&lt;/p&gt;&#xA;&lt;h1 id=&#34;a-website-how&#34;&gt;A website! How?&lt;/h1&gt;&#xA;&lt;p&gt;With ease.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve made a personal website before actually. I crafted it out of raw html and css, no frameworks, or whatever, just as Tim Berners-Lee intended.&lt;/p&gt;&#xA;&lt;p&gt;$$ \frac{2}{3} $$&lt;/p&gt;&#xA;&lt;p&gt;This time around I wanted things to&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Just be plain easier to code, so I actually &lt;em&gt;use&lt;/em&gt; the damn thing&lt;/li&gt;&#xA;&lt;li&gt;Feel a bit more&amp;hellip; put together&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;So I made this website using Hugo, the docs for which leave a &lt;em&gt;little&lt;/em&gt; to be desired in terms of a tutorial - it&amp;rsquo;s sort of like &amp;ldquo;so here&amp;rsquo;s how to install themes and make content - right! That&amp;rsquo;s all! Have fun wandering round the other doc pages slowly piecing everything else together!&amp;rdquo;. Whatever. I got it working easily enough.&lt;/p&gt;</description>
+      
+      <guid>/blog/this_website/</guid>
+      <description>&lt;p&gt;A little spiel on how and why I made this website.&lt;/p&gt;
+&lt;h1 id=&#34;a-website-how&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#a-website-how&#34;&gt;
+        ##
+    &lt;/a&gt;
+    A website! How?
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;With ease.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve made a personal website before actually. I crafted it out of raw html and css, no frameworks, or whatever, just as Tim Berners-Lee intended.&lt;/p&gt;
+&lt;p&gt;$$ \frac{2}{3} $$&lt;/p&gt;
+&lt;p&gt;This time around I wanted things to&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Just be plain easier to code, so I actually &lt;em&gt;use&lt;/em&gt; the damn thing&lt;/li&gt;
+&lt;li&gt;Feel a bit more&amp;hellip; put together&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So I made this website using Hugo, the docs for which leave a &lt;em&gt;little&lt;/em&gt; to be desired in terms of a tutorial - it&amp;rsquo;s sort of like &amp;ldquo;so here&amp;rsquo;s how to install themes and make content - right! That&amp;rsquo;s all! Have fun wandering round the other doc pages slowly piecing everything else together!&amp;rdquo;. Whatever. I got it working easily enough.&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;Future me can pick this up, I might edit the CSS, which would certainly change the content of this article&lt;/del&gt;&lt;/p&gt;
+&lt;h1 id=&#34;a-website-eyes-why&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#a-website-eyes-why&#34;&gt;
+        ##
+    &lt;/a&gt;
+    A website &amp;#x1f440;!? Why?
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;I needed a place to document my projects. I plan to make YouTube videos on them too, but videos are effort. Writing little posts is much easier (plus it acts as a sort of draft for the video script - two turds with one bone!).&lt;/p&gt;
+&lt;p&gt;I also wanted a place to share some writings. Mini-essays of sorts. I realised I should write more - get the thoughts out there - &lt;em&gt;distill things&lt;/em&gt;. I&amp;rsquo;ve got a post coming up about teaching fractions, decimals, and division of them to children, motivated by my struggle trying to teach said topics to my little cousin.&lt;/p&gt;
+&lt;p&gt;And finally, like the home page &lt;del&gt;says&lt;/del&gt; (will say):&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;I ask, &amp;lsquo;cause I&amp;rsquo;m not sure, do anybody make real shit anymore?&amp;rdquo; - K. West, &lt;em&gt;Stronger&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Social media just ain&amp;rsquo;t got the &lt;strong&gt;vibe&lt;/strong&gt;. Same profile layout, same black background (because you&amp;rsquo;re not &lt;em&gt;seriously&lt;/em&gt; using Instagram in light mode are you?) - it&amp;rsquo;s a damn shame. That&amp;rsquo;s part of the reason I whacked this thing on &lt;a href=&#34;https://neocities.org/browse&#34;&gt;Neocities&lt;/a&gt; (also because it&amp;rsquo;s free): you see some real creativity from some real deranged people on there - &lt;em&gt;just as Tim Berners-Lee intended&lt;/em&gt;. Webpages should contain knowledge and vibes, not slop.&lt;/p&gt;
+</description>
     </item>
+    
   </channel>
 </rss>
