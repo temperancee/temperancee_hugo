@@ -2,94 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>temperancee&#39;s hovel</title>
-    <link>/</link>
-    <description>temperancee&#39;s hovel</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <link>https://example.org/</link>
+    <description>Recent content on temperancee&#39;s hovel</description>
+    <generator>Hugo</generator>
     <language>en-gb</language>
-    
-      
-
-      
-    
-
-    
-    <lastBuildDate>Wed, 18 Jun 2025 19:46:13 +0100</lastBuildDate>
-    
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 08 Jul 2025 22:23:51 +0100</lastBuildDate>
+    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Micropython X Neovim</title>
+      <link>https://example.org/blog/micropython_x_neovim/</link>
+      <pubDate>Tue, 08 Jul 2025 22:23:51 +0100</pubDate>
+      <guid>https://example.org/blog/micropython_x_neovim/</guid>
+      <description>&lt;p&gt;As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&amp;rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.&lt;/p&gt;&#xA;&lt;h2 id=&#34;reader-prerequistes&#34;&gt;Reader prerequistes&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An nvim setup&lt;/li&gt;&#xA;&lt;li&gt;Understand LSP in Neovim&lt;/li&gt;&#xA;&lt;li&gt;Understand Python virtual environments&lt;/li&gt;&#xA;&lt;li&gt;Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;neovim-lsp&#34;&gt;Neovim LSP&lt;/h1&gt;&#xA;&lt;p&gt;First, get pyright, but then, we need something else too probably.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About</title>
-      <link>/about/</link>
+      <link>https://example.org/about/</link>
       <pubDate>Wed, 18 Jun 2025 19:46:13 +0100</pubDate>
-      
-      <guid>/about/</guid>
-      <description>&lt;p&gt;My name is Myles, but I&amp;rsquo;m floating temperancee as my latest (and greatest) screen name.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;m a third year mathematics student who spends his time building robots and programming things (like robots, but not &lt;em&gt;just&lt;/em&gt; robots).&lt;/p&gt;
-&lt;p&gt;On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, Vim, Linux, maths, and whatever else.&lt;/p&gt;
-&lt;p&gt;Enjoy your stay.&lt;/p&gt;
-</description>
+      <guid>https://example.org/about/</guid>
+      <description>&lt;p&gt;My name is Myles, but I&amp;rsquo;m floating temperancee as my latest (and greatest) screen name.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m a third year mathematics student who spends his time building robots and programming things (like robots, but not &lt;em&gt;just&lt;/em&gt; robots).&lt;/p&gt;&#xA;&lt;p&gt;On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, Vim, Linux, maths, and whatever else.&lt;/p&gt;&#xA;&lt;p&gt;Enjoy your stay.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Welcome</title>
-      <link>/home/</link>
+      <link>https://example.org/home/</link>
       <pubDate>Wed, 18 Jun 2025 19:34:41 +0100</pubDate>
-      
-      <guid>/home/</guid>
-      <description>&lt;h1 id=&#34;nothing&#34; &gt;
-&lt;div&gt;
-    &lt;a href=&#34;#nothing&#34;&gt;
-        ##
-    &lt;/a&gt;
-    Nothing
-&lt;/div&gt;
-&lt;/h1&gt;
-&lt;p&gt;what&lt;/p&gt;
-</description>
+      <guid>https://example.org/home/</guid>
+      <description>&lt;h1 id=&#34;nothing&#34;&gt;Nothing&lt;/h1&gt;&#xA;&lt;p&gt;what&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>The classic first blog post, a note on this website</title>
-      <link>/blog/this_website/</link>
+      <link>https://example.org/blog/this_website/</link>
       <pubDate>Mon, 16 Jun 2025 20:38:56 +0100</pubDate>
-      
-      <guid>/blog/this_website/</guid>
-      <description>&lt;p&gt;A little spiel on how and why I made this website.&lt;/p&gt;
-&lt;h1 id=&#34;a-website-how&#34; &gt;
-&lt;div&gt;
-    &lt;a href=&#34;#a-website-how&#34;&gt;
-        ##
-    &lt;/a&gt;
-    A website! How?
-&lt;/div&gt;
-&lt;/h1&gt;
-&lt;p&gt;With ease.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve made a personal website before actually. I crafted it out of raw html and css, no frameworks, or whatever, just as Tim Berners-Lee intended.&lt;/p&gt;
-&lt;p&gt;$$ \frac{2}{3} $$&lt;/p&gt;
-&lt;p&gt;This time around I wanted things to&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Just be plain easier to code, so I actually &lt;em&gt;use&lt;/em&gt; the damn thing&lt;/li&gt;
-&lt;li&gt;Feel a bit more&amp;hellip; put together&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;So I made this website using Hugo, the docs for which leave a &lt;em&gt;little&lt;/em&gt; to be desired in terms of a tutorial - it&amp;rsquo;s sort of like &amp;ldquo;so here&amp;rsquo;s how to install themes and make content - right! That&amp;rsquo;s all! Have fun wandering round the other doc pages slowly piecing everything else together!&amp;rdquo;. Whatever. I got it working easily enough.&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;Future me can pick this up, I might edit the CSS, which would certainly change the content of this article&lt;/del&gt;&lt;/p&gt;
-&lt;h1 id=&#34;a-website-eyes-why&#34; &gt;
-&lt;div&gt;
-    &lt;a href=&#34;#a-website-eyes-why&#34;&gt;
-        ##
-    &lt;/a&gt;
-    A website &amp;#x1f440;!? Why?
-&lt;/div&gt;
-&lt;/h1&gt;
-&lt;p&gt;I needed a place to document my projects. I plan to make YouTube videos on them too, but videos are effort. Writing little posts is much easier (plus it acts as a sort of draft for the video script - two turds with one bone!).&lt;/p&gt;
-&lt;p&gt;I also wanted a place to share some writings. Mini-essays of sorts. I realised I should write more - get the thoughts out there - &lt;em&gt;distill things&lt;/em&gt;. I&amp;rsquo;ve got a post coming up about teaching fractions, decimals, and division of them to children, motivated by my struggle trying to teach said topics to my little cousin.&lt;/p&gt;
-&lt;p&gt;And finally, like the home page &lt;del&gt;says&lt;/del&gt; (will say):&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&amp;ldquo;I ask, &amp;lsquo;cause I&amp;rsquo;m not sure, do anybody make real shit anymore?&amp;rdquo; - K. West, &lt;em&gt;Stronger&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;Social media just ain&amp;rsquo;t got the &lt;strong&gt;vibe&lt;/strong&gt;. Same profile layout, same black background (because you&amp;rsquo;re not &lt;em&gt;seriously&lt;/em&gt; using Instagram in light mode are you?) - it&amp;rsquo;s a damn shame. That&amp;rsquo;s part of the reason I whacked this thing on &lt;a href=&#34;https://neocities.org/browse&#34;&gt;Neocities&lt;/a&gt; (also because it&amp;rsquo;s free): you see some real creativity from some real deranged people on there - &lt;em&gt;just as Tim Berners-Lee intended&lt;/em&gt;. Webpages should contain knowledge and vibes, not slop.&lt;/p&gt;
-</description>
+      <guid>https://example.org/blog/this_website/</guid>
+      <description>&lt;p&gt;A little spiel on how and why I made this website.&lt;/p&gt;&#xA;&lt;h1 id=&#34;a-website-how&#34;&gt;A website! How?&lt;/h1&gt;&#xA;&lt;p&gt;With ease.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve made a personal website before actually. I crafted it out of raw html and css, no frameworks, or whatever, just as Tim Berners-Lee intended.&lt;/p&gt;&#xA;&lt;p&gt;$$ \frac{2}{3} $$&lt;/p&gt;&#xA;&lt;p&gt;This time around I wanted things to&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Just be plain easier to code, so I actually &lt;em&gt;use&lt;/em&gt; the damn thing&lt;/li&gt;&#xA;&lt;li&gt;Feel a bit more&amp;hellip; put together&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;So I made this website using Hugo, the docs for which leave a &lt;em&gt;little&lt;/em&gt; to be desired in terms of a tutorial - it&amp;rsquo;s sort of like &amp;ldquo;so here&amp;rsquo;s how to install themes and make content - right! That&amp;rsquo;s all! Have fun wandering round the other doc pages slowly piecing everything else together!&amp;rdquo;. Whatever. I got it working easily enough.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
