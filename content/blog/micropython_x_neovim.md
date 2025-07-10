@@ -15,7 +15,7 @@ As you may know, my editor of choice is Neovim, the finest editor in the game. T
 
 # Neovim LSP 
 
-There are many LSPs for Python, some of which you can read about by opening Neovim and running ":h lspconfig-all", to see the detailed list of all the LSPs for Neovim (note you need the [lspconfig plugin](https://github.com/neovim/nvim-lspconfig) to see this).
+There are many LSPs for Python, some of which you can read about by opening Neovim and running `:h lspconfig-all`, to see the detailed list of all the LSPs for Neovim (note you need the [lspconfig plugin](https://github.com/neovim/nvim-lspconfig) to see this).
 
 I use Pyright, which works pretty well, and I think is the most popular one. If you use Mason, you can download it with that, or if you're on Arch like me, a simple
 ```shell
@@ -43,13 +43,13 @@ Almost every Micropython tutorial you will see will simply tell you to install T
 
 Micropython only runs programs on start-up when you copy them onto the board and name them `main.py`. To accomplish this, open a terminal, make sure `rshell` is installed and your `venv` is active, then run
 ```shell
-# rshell -p /dev/ttyACM0
+rshell -p /dev/ttyACM0
 ```
 which will put you into `rshell`. 
 
 From here, we need to copy over our program to the board. Files on the board are stored under `/pyboard/`, and you can see files on your system with `ls`, just like in a normal shell. Bringing this together:
 ```shell
-> cp my_program.py /pyboard/main.py
+cp my_program.py /pyboard/main.py
 ```
 And just like that, your program is on your board! Reset your board and it'll start running.
 
