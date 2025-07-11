@@ -1,6 +1,7 @@
 +++
 date = '2025-06-16T20:38:56+01:00'
 title = 'The classic first blog post, a note on this website'
+draft = true
 +++
 
 A little spiel on how and why I made this website.

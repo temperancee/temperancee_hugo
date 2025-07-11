@@ -4,9 +4,7 @@ draft = true
 title = 'About'
 +++
 
-My name is Myles, but I'm floating temperancee as my latest (and greatest) screen name.
-
-I'm a third year mathematics student who spends his time building robots and programming things (like robots, but not *just* robots). 
+My name is Myles, I'm a third year mathematics student at Durham University who spends his time building robots and programming things (like robots, but not *just* robots). 
 
 On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, Vim, Linux, maths, and whatever else.
 

@@ -4,12 +4,14 @@ title = "temperancee's hovel"
 theme = 'anubis2'
 enableEmoji = true
 
-
 [pagination]
 pagerSize = 5
 
 [params.author]
 name = "temperancee"
+
+[params]
+# toc = false
 
 [params.anubis2]
     enableMathGlobally = true
@@ -21,6 +23,7 @@ name = "temperancee"
         { id = "github", url = "https://github.com/temperancee" },
         { id = "youtube", url = "https://youtube.com/@temperanceeeee" }
     ]
+    colorTheme = "dark"
 
 [[menu.main]]
 identifier = "home"
