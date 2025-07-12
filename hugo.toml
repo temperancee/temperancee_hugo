@@ -4,6 +4,10 @@ title = "temperancee's hovel"
 theme = 'anubis2'
 enableEmoji = true
 
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
 [pagination]
 pagerSize = 5
 
