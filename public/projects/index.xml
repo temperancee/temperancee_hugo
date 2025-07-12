@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on temperancee&#39;s hovel</title>
+    <link>/projects/</link>
+    <description>temperancee&#39;s hovel (Projects)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+      
+
+      
+    
+
+    
+    <lastBuildDate>Sat, 12 Jul 2025 17:06:42 +0100</lastBuildDate>
+    
+    <atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Robot Arm</title>
+      <link>/projects/robot_arm/</link>
+      <pubDate>Sat, 12 Jul 2025 17:06:42 +0100</pubDate>
+      
+      <guid>/projects/robot_arm/</guid>
+      <description>&lt;p&gt;This page documents my work on building a robot arm. At a glance this project covers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Designing the arm in FreeCAD and 3D printing it&lt;/li&gt;
+&lt;li&gt;Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server&lt;/li&gt;
+&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and motion planning algorithms&lt;/li&gt;
+&lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;the-implementation-details&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-implementation-details&#34;&gt;
+        ##
+    &lt;/a&gt;
+    The implementation details
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;This project can be split into four parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The CAD&lt;/li&gt;
+&lt;li&gt;The electronics&lt;/li&gt;
+&lt;li&gt;The Pico program&lt;/li&gt;
+&lt;li&gt;The web interface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-cad&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-cad&#34;&gt;
+        #
+    &lt;/a&gt;
+    The CAD
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;The robot was designed using FreeCAD. I designed all the parts myself, except the claw (currently). While it certainly works, there are a lot of things I would have done differently if I were to start over.&lt;/p&gt;
+&lt;h2 id=&#34;the-electronics&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-electronics&#34;&gt;
+        #
+    &lt;/a&gt;
+    The electronics
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;The electronics in this project are so simple they&amp;rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on the Pico, and the whole project is powered by a 5V power supply. All the wiring lives on a breadboard.&lt;/p&gt;
+&lt;h2 id=&#34;the-pico-program&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-pico-program&#34;&gt;
+        #
+    &lt;/a&gt;
+    The pico program
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated.&lt;/p&gt;
+&lt;h2 id=&#34;the-web-interface&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-web-interface&#34;&gt;
+        #
+    &lt;/a&gt;
+    The web interface
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle control) and a few buttons. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;
+&lt;p&gt;The HTTP server is written in Python, making use of the &lt;code&gt;ThreadingHTTPServer&lt;/code&gt; class from the &lt;a href=&#34;https://docs.python.org/3/library/http.server.html&#34;&gt;http.server&lt;/a&gt; library. As mentioned in the last section, long polling is used to send data to the Pico; when the server receives a GET request, it checks for updates to the &lt;code&gt;angles.json&lt;/code&gt; file using timestamps, and sends angles only when the JSON has been updated.&lt;/p&gt;
+&lt;h1 id=&#34;the-story&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-story&#34;&gt;
+        ##
+    &lt;/a&gt;
+    The story
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;p&gt;Back in September 2024, I began creating my own robot arm. I learnt a lot about CAD, Micropython, gears (although, there aren&amp;rsquo;t any in this robot, bar those within servos), and forward/inverse kinematics.
+By the end of December, I had a &amp;ldquo;working&amp;rdquo; robot arm (I couldn&amp;rsquo;t get the inverese kinematics to work!). I didn&amp;rsquo;t really have a way to control it though, bar writing motor movements into the code, then editing and reuploading the code. At this point I put the arm aside to work on my quadcopter (&lt;strong&gt;post on that coming soon!!&lt;/strong&gt;).&lt;/p&gt;
+&lt;p&gt;Recently I returned to finish off the project. I was losing interest in my quadcopter and had just seen the trailer for KBot by K-Scale Labs. My interest in robotics has always been tied to the idea of getting robots to do menial house chores for me lol. Seeing how much development was going on in the area of humanoid robotics made me want to finish my arm project.
+I have since created a web interface to control the robot, and am currently redesigning the wrist and claw. Following that, I plan to take another crack at inverse kinematics, and maybe add a camera to the arm, then learn ROS2 to implement some motion planning algorithms.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
