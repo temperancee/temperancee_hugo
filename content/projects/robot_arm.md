@@ -7,7 +7,7 @@ title = 'Robot Arm'
 This page documents my work on building a robot arm. At a glance this project covers:
 - Designing the arm in FreeCAD and 3D printing it
 - Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
-- Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and motion planning algorithms
+- Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning
 - Using threading to make use of the Pico's dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface
 
 # The implementation details
