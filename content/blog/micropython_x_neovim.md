@@ -1,10 +1,10 @@
 +++
 date = '2025-07-08T22:23:51+01:00'
 draft = false
-title = 'Micropython X Neovim'
+title = 'MicroPython X Neovim'
 +++
 
-As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won't cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.
+This post teaches you how to get a barebones environment setup for working on MicroPython projects with Neovim. This won't cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for MicroPython development.
 
 ## Prerequistes
 
@@ -25,21 +25,21 @@ sudo pacman -S pyright
 ```
 will suffice.
 
-### A sad note on Micropython import errors
+### MicroPython import errors, and stubs to the rescue
 
-Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. `machine`.
-These libraries exist on the device running Micropython, and so code that imports them runs fine.
+MicroPython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. `machine`.
+These libraries exist on the device running MicroPython, and so code that imports them runs fine.
 However, when importing these libraries, we get errors in our editor, because these libraries don't exist on our PC/Laptop, so our editor cannot see them.
 
-As far as I'm aware (backed up by [this post](https://stackoverflow.com/questions/62548091/why-cant-vscode-load-micropython-machine)) that the only way to get around this would be to create libraries that implement all the classes, methods, etc. of the Micropython libraries on our local machine. As referenced in that post, you can see an example of this idea in this [Github repository for the ESP32](https://github.com/tflander/esp32-machine-emulator). I haven't used this repository myself, but it seems like the project was unfortunately abandoned
+This is where stubs come in. Stubs are essentially libraries that implement all the classes, methods, functions, etc. that the actual MicroPython libraries provide, but they leave the implementation empty. This allows your LSP to provide information on available functions and their parameters without you having to check the docs. It also gets rid of the import errors, as your system will now be able to see and recognise the MicroPython libraries. You can find a large repository of stubs for various different boards and versions of MicroPython [here](https://github.com/Josverl/micropython-stubs).
 
-My current """solution""" to this issue is simply ignoring the errors. While the code runs fine, this is less than ideal. Hopefully I'll find a way around this some day.
+As things stand, I am yet to incorporate stubs into my own workflow, so take the above solution with a grain of salt. My current """solution""" to this issue is simply ignoring the errors. While the code runs fine, this is less than ideal, and soon I'll probably move to using stubs instead.
 
-## Micropython without Thonny/VSCode
+## MicroPython without Thonny/VSCode
 
-Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you're lucky, they might show you how to use VSCode (although I've only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about `rshell`.
+Almost every MicroPython tutorial you will see will simply tell you to install Thonny to upload code - if you're lucky, they might show you how to use VSCode (although I've only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about `rshell`.
 
-`rshell` is a command line utility that allows you to run commands on your board running Micropython. For full details, see its [github page](https://github.com/dhylands/rshell). In this section, I'm just going to cover uploading and running files.
+`rshell` is a command line utility that allows you to run commands on your board running MicroPython. For full details, see its [github page](https://github.com/dhylands/rshell). In this section, I'm just going to cover uploading and running files.
 
 `rshell` is installed through `pip`, which means you'll likely have to set up a `venv` to use it:
 ```bash
@@ -51,7 +51,7 @@ The second and third commands may differ depending on your operating system. See
 
 ### Uploading Code
 
-Micropython only runs programs on start-up when you copy them onto the board and name them `main.py`. To accomplish this, open a terminal, make sure `rshell` is installed (and, if necessary, make sure your `venv` is active), then run
+MicroPython only runs programs on start-up when you copy them onto the board and name them `main.py`. To accomplish this, open a terminal, make sure `rshell` is installed (and, if necessary, make sure your `venv` is active), then run
 ```bash
 rshell -p /dev/ttyACM0
 ```
