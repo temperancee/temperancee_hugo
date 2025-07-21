@@ -1,57 +1,116 @@
 +++
 date = '2025-07-08T22:23:51+01:00'
 draft = false
-title = 'MicroPython X Neovim'
+title = 'Micropython X Neovim'
 +++
 
-This post teaches you how to get a barebones environment setup for working on MicroPython projects with Neovim. This won't cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for MicroPython development.
+This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won't cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.
 
 ## Prerequistes
 
 You should have:
-- A Neovim setup
-- An understanding of LSPs in Neovim
-- An understanding of Python virtual environments
+- A Neovim setup, I recommend TJ DeVries' "[Advent of Neovim](https://www.youtube.com/playlist?list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM)" series for getting set up
+- An understanding of LSPs in Neovim, again, see TJ DeVries' [video](https://youtu.be/bTWWFQZqzyI?si=ydv-dEtXykOh_cMh) on this
+- An understanding of Python virtual environments, the [docs](https://docs.python.org/3/library/venv.html) are fairly accessible for this topic, or you can watch pretty much any YouTube video about venvs
 - Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)
 
 ## Neovim LSP 
 
-There are many LSPs for Python, some of which you can read about by opening Neovim and running `:h lspconfig-all`. I use Pyright, which works pretty well. 
-
+There are many LSPs for Python, some of which you can read about by opening Neovim and running `:h lspconfig-all`. I use Pyright, which works pretty well, and seems to be the most popular choice.
 
 If you use Mason, you can download it with that, or if you're on Arch like me, a simple
 ```bash
 sudo pacman -S pyright
 ```
-will suffice.
+will suffice. For other operating systems, just use your standard package manager.
 
-### MicroPython import errors, and stubs to the rescue
+You can also install Pyright via Pip if you'd like:
+```bash
+pip install pyright
+```
 
-MicroPython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. `machine`.
-These libraries exist on the device running MicroPython, and so code that imports them runs fine.
+Now we need to enable Pyright in our `init.lua`, or alternative, a separate Lua file that we `require` in `init.lua`.
+```lua
+vim.lsp.enable('pyright')
+```
+Run `:h lspconfig-all` and read the Pyright section for details on configuring the LSP - for most use cases, just enabling Pyright should suffice.
+
+### Micropython import errors, and stubs to the rescue
+
+Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. `machine`.
+These libraries exist on the device running Micropython, and so code that imports them runs fine.
 However, when importing these libraries, we get errors in our editor, because these libraries don't exist on our PC/Laptop, so our editor cannot see them.
 
-This is where stubs come in. Stubs are essentially libraries that implement all the classes, methods, functions, etc. that the actual MicroPython libraries provide, but they leave the implementation empty. This allows your LSP to provide information on available functions and their parameters without you having to check the docs. It also gets rid of the import errors, as your system will now be able to see and recognise the MicroPython libraries. You can find a large repository of stubs for various different boards and versions of MicroPython [here](https://github.com/Josverl/micropython-stubs).
+This is where stubs come in. Stubs are essentially files that implement all the classes, methods, functions, etc. in a library, but they leave the implementation empty. This allows your LSP to provide information on available functions and their parameters without you having to check the docs. It also gets rid of the import errors, as your system will now be able to see and recognise the Micropython libraries.
 
-As things stand, I am yet to incorporate stubs into my own workflow, so take the above solution with a grain of salt. My current """solution""" to this issue is simply ignoring the errors. While the code runs fine, this is less than ideal, and soon I'll probably move to using stubs instead.
+Thankfully, there exists [a large repository of stubs for various micropython compatible boards](https://github.com/Josverl/micropython-stubs), so we don't have to create these files ourselves. Getting these stubs to work involves first installing them, then configuring Pyright to see them.
 
-## MicroPython without Thonny/VSCode
+#### Installation
 
-Almost every MicroPython tutorial you will see will simply tell you to install Thonny to upload code - if you're lucky, they might show you how to use VSCode (although I've only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about `rshell`.
-
-`rshell` is a command line utility that allows you to run commands on your board running MicroPython. For full details, see its [github page](https://github.com/dhylands/rshell). In this section, I'm just going to cover uploading and running files.
-
-`rshell` is installed through `pip`, which means you'll likely have to set up a `venv` to use it:
+We install the stubs with Pip, so you may have to create a virtual environment to use them (due to global Pip installs being forbidden by default in externally managed (i.e., by a package manager) environments - see [this document](https://packaging.python.org/en/latest/specifications/externally-managed-environments/#externally-managed-environments) for details).
 ```bash
 python3 -m venv your-venv-name
 source your-venv-name/bin/activate
+```
+These commands may differ depending on your operating system, see [the docs](https://docs.python.org/3/library/venv.html) for more details. Once the venv is created, we can either install the stubs directly, or create a `requirements-dev.txt` file. We install the stubs to a folder called `typings`.
+
+```
+#requirements-dev.txt
+micropython-rp2-rpi_pico_w-stubs==1.25.0.*
+```
+```bash
+pip install -r requirements-dev.txt --target typings
+```
+
+For more detail, see the [stubs documentation](https://micropython-stubs.readthedocs.io/en/main/11_install_stubs.html).
+
+#### Configuring Pyright
+
+Pyright is configured using either a `pyproject.toml` or `pyrightconfig.json` file. I use the toml file. There are various settings you can use to configure Pyright, documented [here](https://github.com/microsoft/pyright/blob/main/docs/configuration.md). Here is my `pyproject.toml`:
+```toml
+[tool.pyright]
+stubPath = "typings"
+venvPath = "."
+venv = "micropython_venv"
+typeshedPath = "typings"
+typeCheckingMode = "basic"
+reportMissingModuleSource = "none"
+```
+
+
+- Firstly, we set the `stubPath`, which tells Pyright where our stubs are stored.
+- `venvPath` specifies a path to a directory which *contains* virtual environments. Since my venv is in the same directory as my `pyproject.toml`, I set this to the current directory.
+- `venv` is used in conjunction with `venvPath` to specify which venv to use for this project.
+- `typeshedPath` is used to override the standard library stubs with the micropython ones. We set it to `"typings"`, which is where our stubs are stored
+- `typeCheckingMode` does what it says on the tin. `"basic"` should work for most people.
+- `reportMissingModuleSource` is a warning that appears when stubs are detected but their implementation files cannot be found. Since our implementation files are all stored on the device running MicroPython, we need to disable this warning.
+
+All paths are relative to the root of the project. The root of the project is determined based on the `root-markers` option set in your LSP configuration of Pyright. By default, this is `{ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" }`. I personally have mine set to the following:
+``` lua
+vim.lsp.config('pyright', {
+    root-markers = { "pyproject.toml", "pyrightconfig.json" }
+})
+vim.lsp.enable('pyright')
+```
+For more details on these settings and more, see both the [stub documentation](https://micropython-stubs.readthedocs.io/en/main/22_vscode.html) and the [Pyright documentation](https://github.com/microsoft/pyright/blob/main/docs/configuration.md).
+
+And that's it! The LSP should now be up and running, and you should be able to see information about imported classes, methods, etc.
+
+## Micropython without Thonny/VSCode
+
+Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you're lucky, they might show you how to use VSCode (although I've only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about `rshell`.
+
+`rshell` is a command line utility that allows you to run commands on your board running Micropython. For full details, see its [github page](https://github.com/dhylands/rshell). In this section, I'm just going to cover uploading and running files.
+
+`rshell` is installed through `pip`, which means we'll need our venv again.
+```bash
+source your-venv-name/bin/activate
 pip install rshell
 ```
-The second and third commands may differ depending on your operating system. See [the docs](https://docs.python.org/3/library/venv.html) for more details.
 
 ### Uploading Code
 
-MicroPython only runs programs on start-up when you copy them onto the board and name them `main.py`. To accomplish this, open a terminal, make sure `rshell` is installed (and, if necessary, make sure your `venv` is active), then run
+Micropython only runs programs on start-up when you copy them onto the board and name them `main.py`. To accomplish this, open a terminal, make sure `rshell` is installed (and, if necessary, make sure your `venv` is active), then run
 ```bash
 rshell -p /dev/ttyACM0
 ```

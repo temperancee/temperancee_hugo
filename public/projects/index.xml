@@ -28,7 +28,7 @@
 &lt;ul&gt;
 &lt;li&gt;Designing the arm in FreeCAD and 3D printing it&lt;/li&gt;
 &lt;li&gt;Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server&lt;/li&gt;
-&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and motion planning algorithms&lt;/li&gt;
+&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning&lt;/li&gt;
 &lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;the-implementation-details&#34; &gt;

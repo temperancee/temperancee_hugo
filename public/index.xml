@@ -28,7 +28,7 @@
 &lt;ul&gt;
 &lt;li&gt;Designing the arm in FreeCAD and 3D printing it&lt;/li&gt;
 &lt;li&gt;Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server&lt;/li&gt;
-&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and motion planning algorithms&lt;/li&gt;
+&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning&lt;/li&gt;
 &lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;the-implementation-details&#34; &gt;
@@ -104,7 +104,7 @@ I have since created a web interface to control the robot, and am currently rede
       <pubDate>Tue, 08 Jul 2025 22:23:51 +0100</pubDate>
       
       <guid>/blog/micropython_x_neovim/</guid>
-      <description>&lt;p&gt;As you may know, my editor of choice is Neovim, the finest editor in the game. This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&amp;rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.&lt;/p&gt;
+      <description>&lt;p&gt;This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&amp;rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.&lt;/p&gt;
 &lt;h2 id=&#34;prerequistes&#34; &gt;
 &lt;div&gt;
     &lt;a href=&#34;#prerequistes&#34;&gt;
@@ -115,9 +115,9 @@ I have since created a web interface to control the robot, and am currently rede
 &lt;/h2&gt;
 &lt;p&gt;You should have:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;A Neovim setup&lt;/li&gt;
-&lt;li&gt;An understanding of LSPs in Neovim&lt;/li&gt;
-&lt;li&gt;An understanding of Python virtual environments&lt;/li&gt;
+&lt;li&gt;A Neovim setup, I recommend TJ DeVries&amp;rsquo; &amp;ldquo;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM&#34;&gt;Advent of Neovim&lt;/a&gt;&amp;rdquo; series for getting set up&lt;/li&gt;
+&lt;li&gt;An understanding of LSPs in Neovim, again, see TJ DeVries&amp;rsquo; &lt;a href=&#34;https://youtu.be/bTWWFQZqzyI?si=ydv-dEtXykOh_cMh&#34;&gt;video&lt;/a&gt; on this&lt;/li&gt;
+&lt;li&gt;An understanding of Python virtual environments, the &lt;a href=&#34;https://docs.python.org/3/library/venv.html&#34;&gt;docs&lt;/a&gt; are fairly accessible for this topic, or you can watch pretty much any YouTube video about venvs&lt;/li&gt;
 &lt;li&gt;Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;neovim-lsp&#34; &gt;
@@ -128,23 +128,75 @@ I have since created a web interface to control the robot, and am currently rede
     Neovim LSP
 &lt;/div&gt;
 &lt;/h2&gt;
-&lt;p&gt;There are many LSPs for Python, some of which you can read about by opening Neovim and running &lt;code&gt;:h lspconfig-all&lt;/code&gt;. I use Pyright, which works pretty well.&lt;/p&gt;
+&lt;p&gt;There are many LSPs for Python, some of which you can read about by opening Neovim and running &lt;code&gt;:h lspconfig-all&lt;/code&gt;. I use Pyright, which works pretty well, and seems to be the most popular choice.&lt;/p&gt;
 &lt;p&gt;If you use Mason, you can download it with that, or if you&amp;rsquo;re on Arch like me, a simple&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S pyright
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;will suffice.&lt;/p&gt;
-&lt;h3 id=&#34;a-sad-note-on-micropython-import-errors&#34; &gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;will suffice. For other operating systems, just use your standard package manager.&lt;/p&gt;
+&lt;p&gt;You can also install Pyright via Pip if you&amp;rsquo;d like:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install pyright
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we need to enable Pyright in our &lt;code&gt;init.lua&lt;/code&gt;, or alternative, a separate Lua file that we &lt;code&gt;require&lt;/code&gt; in &lt;code&gt;init.lua&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.enable(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run &lt;code&gt;:h lspconfig-all&lt;/code&gt; and read the Pyright section for details on configuring the LSP - for most use cases, just enabling Pyright should suffice.&lt;/p&gt;
+&lt;h3 id=&#34;micropython-import-errors-and-stubs-to-the-rescue&#34; &gt;
 &lt;div&gt;
-    &lt;a href=&#34;#a-sad-note-on-micropython-import-errors&#34;&gt;
+    &lt;a href=&#34;#micropython-import-errors-and-stubs-to-the-rescue&#34;&gt;
         ##
     &lt;/a&gt;
-    A sad note on Micropython import errors
+    Micropython import errors, and stubs to the rescue
 &lt;/div&gt;
 &lt;/h3&gt;
 &lt;p&gt;Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. &lt;code&gt;machine&lt;/code&gt;.
 These libraries exist on the device running Micropython, and so code that imports them runs fine.
 However, when importing these libraries, we get errors in our editor, because these libraries don&amp;rsquo;t exist on our PC/Laptop, so our editor cannot see them.&lt;/p&gt;
-&lt;p&gt;As far as I&amp;rsquo;m aware (backed up by &lt;a href=&#34;https://stackoverflow.com/questions/62548091/why-cant-vscode-load-micropython-machine&#34;&gt;this post&lt;/a&gt;) that the only way to get around this would be to create libraries that implement all the classes, methods, etc. of the Micropython libraries on our local machine. As referenced in that post, you can see an example of this idea in this &lt;a href=&#34;https://github.com/tflander/esp32-machine-emulator&#34;&gt;Github repository for the ESP32&lt;/a&gt;. I haven&amp;rsquo;t used this repository myself, but it seems like the project was unfortunately abandoned&lt;/p&gt;
-&lt;p&gt;My current &amp;ldquo;&amp;ldquo;&amp;ldquo;solution&amp;rdquo;&amp;rdquo;&amp;rdquo; to this issue is simply ignoring the errors. While the code runs fine, this is less than ideal. Hopefully I&amp;rsquo;ll find a way around this some day.&lt;/p&gt;
+&lt;p&gt;This is where stubs come in. Stubs are essentially files that implement all the classes, methods, functions, etc. in a library, but they leave the implementation empty. This allows your LSP to provide information on available functions and their parameters without you having to check the docs. It also gets rid of the import errors, as your system will now be able to see and recognise the Micropython libraries.&lt;/p&gt;
+&lt;p&gt;Thankfully, there exists &lt;a href=&#34;https://github.com/Josverl/micropython-stubs&#34;&gt;a large repository of stubs for various micropython compatible boards&lt;/a&gt;, so we don&amp;rsquo;t have to create these files ourselves. Getting these stubs to work involves first installing them, then configuring Pyright to see them.&lt;/p&gt;
+&lt;h4 id=&#34;installation&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation&#34;&gt;
+        ###
+    &lt;/a&gt;
+    Installation
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;We install the stubs with Pip, so you may have to create a virtual environment to use them (due to global Pip installs being forbidden by default in externally managed (i.e., by a package manager) environments - see &lt;a href=&#34;https://packaging.python.org/en/latest/specifications/externally-managed-environments/#externally-managed-environments&#34;&gt;this document&lt;/a&gt; for details).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 -m venv your-venv-name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These commands may differ depending on your operating system, see &lt;a href=&#34;https://docs.python.org/3/library/venv.html&#34;&gt;the docs&lt;/a&gt; for more details. Once the venv is created, we can either install the stubs directly, or create a &lt;code&gt;requirements-dev.txt&lt;/code&gt; file. We install the stubs to a folder called &lt;code&gt;typings&lt;/code&gt;.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#requirements-dev.txt
+micropython-rp2-rpi_pico_w-stubs==1.25.0.*
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -r requirements-dev.txt --target typings
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For more detail, see the &lt;a href=&#34;https://micropython-stubs.readthedocs.io/en/main/11_install_stubs.html&#34;&gt;stubs documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;configuring-pyright&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuring-pyright&#34;&gt;
+        ###
+    &lt;/a&gt;
+    Configuring Pyright
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;Pyright is configured using either a &lt;code&gt;pyproject.toml&lt;/code&gt; or &lt;code&gt;pyrightconfig.json&lt;/code&gt; file. I use the toml file. There are various settings you can use to configure Pyright, documented &lt;a href=&#34;https://github.com/microsoft/pyright/blob/main/docs/configuration.md&#34;&gt;here&lt;/a&gt;. Here is my &lt;code&gt;pyproject.toml&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[tool.pyright]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stubPath = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;typings&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;venvPath = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;venv = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;micropython_venv&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;typeshedPath = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;typings&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;typeCheckingMode = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;basic&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;reportMissingModuleSource = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Firstly, we set the &lt;code&gt;stubPath&lt;/code&gt;, which tells Pyright where our stubs are stored.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;venvPath&lt;/code&gt; specifies a path to a directory which &lt;em&gt;contains&lt;/em&gt; virtual environments. Since my venv is in the same directory as my &lt;code&gt;pyproject.toml&lt;/code&gt;, I set this to the current directory.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;venv&lt;/code&gt; is used in conjunction with &lt;code&gt;venvPath&lt;/code&gt; to specify which venv to use for this project.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;typeshedPath&lt;/code&gt; is used to override the standard library stubs with the micropython ones. We set it to &lt;code&gt;&amp;quot;typings&amp;quot;&lt;/code&gt;, which is where our stubs are stored&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;typeCheckingMode&lt;/code&gt; does what it says on the tin. &lt;code&gt;&amp;quot;basic&amp;quot;&lt;/code&gt; should work for most people.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;reportMissingModuleSource&lt;/code&gt; is a warning that appears when stubs are detected but their implementation files cannot be found. Since our implementation files are all stored on the device running MicroPython, we need to disable this warning.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All paths are relative to the root of the project. The root of the project is determined based on the &lt;code&gt;root-markers&lt;/code&gt; option set in your LSP configuration of Pyright. By default, this is &lt;code&gt;{ &amp;quot;pyproject.toml&amp;quot;, &amp;quot;setup.py&amp;quot;, &amp;quot;setup.cfg&amp;quot;, &amp;quot;requirements.txt&amp;quot;, &amp;quot;Pipfile&amp;quot;, &amp;quot;pyrightconfig.json&amp;quot;, &amp;quot;.git&amp;quot; }&lt;/code&gt;. I personally have mine set to the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.config(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;, {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    root&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;-&lt;/span&gt;markers &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;pyproject.toml&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;pyrightconfig.json&amp;#34;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.enable(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For more details on these settings and more, see both the &lt;a href=&#34;https://micropython-stubs.readthedocs.io/en/main/22_vscode.html&#34;&gt;stub documentation&lt;/a&gt; and the &lt;a href=&#34;https://github.com/microsoft/pyright/blob/main/docs/configuration.md&#34;&gt;Pyright documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s it! The LSP should now be up and running, and you should be able to see information about imported classes, methods, etc.&lt;/p&gt;
 &lt;h2 id=&#34;micropython-without-thonnyvscode&#34; &gt;
 &lt;div&gt;
     &lt;a href=&#34;#micropython-without-thonnyvscode&#34;&gt;
@@ -155,12 +207,10 @@ However, when importing these libraries, we get errors in our editor, because th
 &lt;/h2&gt;
 &lt;p&gt;Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you&amp;rsquo;re lucky, they might show you how to use VSCode (although I&amp;rsquo;ve only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about &lt;code&gt;rshell&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is a command line utility that allows you to run commands on your board running Micropython. For full details, see its &lt;a href=&#34;https://github.com/dhylands/rshell&#34;&gt;github page&lt;/a&gt;. In this section, I&amp;rsquo;m just going to cover uploading and running files.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is installed through &lt;code&gt;pip&lt;/code&gt;, which means you&amp;rsquo;ll likely have to set up a &lt;code&gt;venv&lt;/code&gt; to use it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 -m venv your-venv-name
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
+&lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is installed through &lt;code&gt;pip&lt;/code&gt;, which means we&amp;rsquo;ll need our venv again.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install rshell
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The second and third commands may differ depending on your operating system. See &lt;a href=&#34;https://docs.python.org/3/library/venv.html&#34;&gt;the docs&lt;/a&gt; for more details.&lt;/p&gt;
-&lt;h3 id=&#34;uploading-code&#34; &gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;uploading-code&#34; &gt;
 &lt;div&gt;
     &lt;a href=&#34;#uploading-code&#34;&gt;
         ##
