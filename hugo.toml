@@ -1,6 +1,6 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-gb'
-title = "temperancee's hovel"
+title = "temperancee's website"
 theme = 'anubis2'
 enableEmoji = true
 
@@ -28,6 +28,10 @@ name = "temperancee"
         { id = "youtube", url = "https://youtube.com/@temperanceeeee" }
     ]
     colorTheme = "dark"
+    
+    customCSS = [
+        "css/homepage.css"
+    ]
 
 [[menu.main]]
 identifier = "home"
@@ -53,8 +57,11 @@ identifier = "blog"
 url = "/blog/"
 weight = 4
 
-[markup.goldmark.renderer]
-unsafe = true # Enable unsafe mode to have a better experience
+[markup.goldmark]
+    [markup.goldmark.renderer]
+        unsafe = false # Enable unsafe mode to have a better experience
+    [markup.goldmark.parser]
+        autoHeadingID = false
 
 [markup.highlight]
 style              = 'catppuccin-frappe' # Find more style at here: https://swapoff.org/chroma/playground/

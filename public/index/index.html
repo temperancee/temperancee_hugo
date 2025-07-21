@@ -18,24 +18,17 @@
 <meta name="referrer" content="no-referrer-when-downgrade">
 <meta name="theme-name" content="Anubis2">
 
-<title>Robot Arm - temperancee&rsquo;s website</title>
+<title>Index - temperancee&rsquo;s website</title>
 
-<meta name="description" content="This page documents my work on building a robot arm. At a glance this project covers:
-
-Designing the arm in FreeCAD and 3D printing it
-Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
-Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning
-Using threading to make use of the Pico&rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface
-
-
+<meta name="description" content="
 
     
         ##
     
-    The implementation details
+    Header
 
 
-This project can be split into four parts:">
+This is a test">
 
 
 
@@ -440,7 +433,7 @@ This project can be split into four parts:">
         <div class="post-header">
             <header>
                 
-                <h1 class="p-name post-title draft">Robot Arm</h1>
+                <h1 class="p-name post-title draft">Index</h1>
                 
 
             </header>
@@ -451,12 +444,12 @@ This project can be split into four parts:">
 <div class="post-info noselect">
     
         <div class="post-date dt-published">
-            <time datetime="2025-07-12">2025-07-12</time>
+            <time datetime="2025-07-21">2025-07-21</time>
             
         </div>
     
 
-    <a class="post-hidden-url u-url" href="/projects/robot_arm/">/projects/robot_arm/</a>
+    <a class="post-hidden-url u-url" href="/index/">/index/</a>
     <a href="http://localhost:1313/" class="p-name p-author post-hidden-author h-card" rel="me">map[name:temperancee]</a>
 
 
@@ -477,19 +470,6 @@ This project can be split into four parts:">
 
 
   
-  
-  
-  <details class="toc noselect">
-    <summary>Table of Contents</summary>
-    <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#the-cad">The CAD</a></li>
-    <li><a href="#the-electronics">The electronics</a></li>
-    <li><a href="#the-pico-program">The pico program</a></li>
-    <li><a href="#the-web-interface">The web interface</a></li>
-  </ul>
-</nav></div>
-  </details>
   
 
 
@@ -513,77 +493,15 @@ This project can be split into four parts:">
 </script>
 
         <div class="content e-content">
-            <p>This page documents my work on building a robot arm. At a glance this project covers:</p>
-<ul>
-<li>Designing the arm in FreeCAD and 3D printing it</li>
-<li>Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server</li>
-<li>Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning</li>
-<li>Using threading to make use of the Pico&rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface</li>
-</ul>
-<h1 id="the-implementation-details" >
+            <h1 id="header" >
 <div>
-    <a href="#the-implementation-details">
+    <a href="#header">
         ##
     </a>
-    The implementation details
+    Header
 </div>
 </h1>
-<p>This project can be split into four parts:</p>
-<ul>
-<li>The CAD</li>
-<li>The electronics</li>
-<li>The Pico program</li>
-<li>The web interface</li>
-</ul>
-<h2 id="the-cad" >
-<div>
-    <a href="#the-cad">
-        #
-    </a>
-    The CAD
-</div>
-</h2>
-<p>The robot was designed using FreeCAD. I designed all the parts myself, except the claw (currently). While it certainly works, there are a lot of things I would have done differently if I were to start over.</p>
-<h2 id="the-electronics" >
-<div>
-    <a href="#the-electronics">
-        #
-    </a>
-    The electronics
-</div>
-</h2>
-<p>The electronics in this project are so simple they&rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on the Pico, and the whole project is powered by a 5V power supply. All the wiring lives on a breadboard.</p>
-<h2 id="the-pico-program" >
-<div>
-    <a href="#the-pico-program">
-        #
-    </a>
-    The pico program
-</div>
-</h2>
-<p>The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the <a href="https://docs.micropython.org/en/latest/library/_thread.html">_thread</a> library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated.</p>
-<h2 id="the-web-interface" >
-<div>
-    <a href="#the-web-interface">
-        #
-    </a>
-    The web interface
-</div>
-</h2>
-<p>The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle control) and a few buttons. Maybe I&rsquo;ll add some CSS in the future.</p>
-<p>The HTTP server is written in Python, making use of the <code>ThreadingHTTPServer</code> class from the <a href="https://docs.python.org/3/library/http.server.html">http.server</a> library. As mentioned in the last section, long polling is used to send data to the Pico; when the server receives a GET request, it checks for updates to the <code>angles.json</code> file using timestamps, and sends angles only when the JSON has been updated.</p>
-<h1 id="the-story" >
-<div>
-    <a href="#the-story">
-        ##
-    </a>
-    The story
-</div>
-</h1>
-<p>Back in September 2024, I began creating my own robot arm. I learnt a lot about CAD, Micropython, gears (although, there aren&rsquo;t any in this robot, bar those within servos), and forward/inverse kinematics.
-By the end of December, I had a &ldquo;working&rdquo; robot arm (I couldn&rsquo;t get the inverese kinematics to work!). I didn&rsquo;t really have a way to control it though, bar writing motor movements into the code, then editing and reuploading the code. At this point I put the arm aside to work on my quadcopter (<strong>post on that coming soon!!</strong>).</p>
-<p>Recently I returned to finish off the project. I was losing interest in my quadcopter and had just seen the trailer for KBot by K-Scale Labs. My interest in robotics has always been tied to the idea of getting robots to do menial house chores for me lol. Seeing how much development was going on in the area of humanoid robotics made me want to finish my arm project.
-I have since created a web interface to control the robot, and am currently redesigning the wrist and claw. Following that, I plan to take another crack at inverse kinematics, and maybe add a camera to the arm, then learn ROS2 to implement some motion planning algorithms.</p>
+<p>This is a test</p>
 
         </div>
 

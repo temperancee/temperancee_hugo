@@ -10,7 +10,7 @@
     <article class="post h-entry">
         <div class="post-header">
             <header>
-                {{/* MY CHANGE: DELETED RANDOM EMOJI CODE  */}}
+                {{/* MY CHANGE: DELETED RANDOM EMOJI CODE */}}
                 <h1 class="p-name post-title{{ if .Params.favorite }} favorite{{end}}{{ if .Params.draft }} draft{{end}}">{{ trim .Title  " " | markdownify }}</h1>
                 {{ partial "post-language-switcher.html" . }}
             </header>
