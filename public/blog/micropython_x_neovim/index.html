@@ -21,14 +21,7 @@
 <title>Micropython X Neovim - temperancee&rsquo;s website</title>
 
 <meta name="description" content="This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.
-
-
-    
-        #
-    
-    Prerequistes
-
-
+Prerequistes
 You should have:
 
 A Neovim setup, I recommend TJ DeVries&rsquo; &ldquo;Advent of Neovim&rdquo; series for getting set up
@@ -36,14 +29,7 @@ An understanding of LSPs in Neovim, again, see TJ DeVries&rsquo; video on this
 An understanding of Python virtual environments, the docs are fairly accessible for this topic, or you can watch pretty much any YouTube video about venvs
 Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)
 
-
-
-    
-        #
-    
-    Neovim LSP
-
-
+Neovim LSP
 There are many LSPs for Python, some of which you can read about by opening Neovim and running :h lspconfig-all. I use Pyright, which works pretty well, and seems to be the most popular choice.">
 
 
@@ -100,7 +86,7 @@ There are many LSPs for Python, some of which you can read about by opening Neov
     
 
     
-        <link rel="stylesheet" href="/css/style.281d77eb52d99463488656583fdd9fdcb3878ac233d0bd710b68dec2ad1eeab8.css" integrity="sha256-KB1361LZlGNIhlZYP92f3LOHisIz0L1xC2jewq0e6rg=">
+        <link rel="stylesheet" href="/css/style.51f2c0b282b93219501a5b826a0f574f65fcba0e4e213841e0b7e5ac00db9fe8.css" integrity="sha256-UfLAsoK5MhlQGluCag9XT2X8ug5OIThB4LflrADbn&#43;g=">
     
 
 
@@ -147,7 +133,24 @@ There are many LSPs for Python, some of which you can read about by opening Neov
 
 
 
+  
 
+
+
+    
+    
+
+    
+    
+    
+      
+    
+
+    
+    
+      <link rel="stylesheet" href="/css/style.min.ec46d1fddfc3ca88edc23748037ed5f22f5378f39f839c5865768b71010cab86.css" integrity="sha256-7EbR/d/DyojtwjdIA37V8i9TePOfg5xYZXaLcQEMq4Y=" crossorigin="anonymous">
+    
+    
 
 
 
@@ -492,16 +495,16 @@ There are many LSPs for Python, some of which you can read about by opening Neov
     <summary>Table of Contents</summary>
     <div class="inner"><nav id="TableOfContents">
   <ul>
-    <li><a href="#prerequistes">Prerequistes</a></li>
-    <li><a href="#neovim-lsp">Neovim LSP</a>
+    <li><a href="#">Prerequistes</a></li>
+    <li><a href="#">Neovim LSP</a>
       <ul>
-        <li><a href="#micropython-import-errors-and-stubs-to-the-rescue">Micropython import errors, and stubs to the rescue</a></li>
+        <li><a href="#">Micropython import errors, and stubs to the rescue</a></li>
       </ul>
     </li>
-    <li><a href="#micropython-without-thonnyvscode">Micropython without Thonny/VSCode</a>
+    <li><a href="#">Micropython without Thonny/VSCode</a>
       <ul>
-        <li><a href="#uploading-code">Uploading Code</a></li>
-        <li><a href="#using-the-repl-for-debugging">Using the REPL for debugging</a></li>
+        <li><a href="#">Uploading Code</a></li>
+        <li><a href="#">Using the REPL for debugging</a></li>
       </ul>
     </li>
   </ul>
@@ -531,14 +534,7 @@ There are many LSPs for Python, some of which you can read about by opening Neov
 
         <div class="content e-content">
             <p>This post teaches you how to get a barebones environment setup for working on Micropython projects with Neovim. This won&rsquo;t cover setting up a proper Neovim environment, just how your can take an already well-developed environment and tailor it for Micropython development.</p>
-<h2 id="prerequistes" >
-<div>
-    <a href="#prerequistes">
-        #
-    </a>
-    Prerequistes
-</div>
-</h2>
+<h2 id="">Prerequistes</h2>
 <p>You should have:</p>
 <ul>
 <li>A Neovim setup, I recommend TJ DeVries&rsquo; &ldquo;<a href="https://www.youtube.com/playlist?list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM">Advent of Neovim</a>&rdquo; series for getting set up</li>
@@ -546,14 +542,7 @@ There are many LSPs for Python, some of which you can read about by opening Neov
 <li>An understanding of Python virtual environments, the <a href="https://docs.python.org/3/library/venv.html">docs</a> are fairly accessible for this topic, or you can watch pretty much any YouTube video about venvs</li>
 <li>Basic familiarity with your shell (since this is a Neovim article, you probably know more than enough)</li>
 </ul>
-<h2 id="neovim-lsp" >
-<div>
-    <a href="#neovim-lsp">
-        #
-    </a>
-    Neovim LSP
-</div>
-</h2>
+<h2 id="">Neovim LSP</h2>
 <p>There are many LSPs for Python, some of which you can read about by opening Neovim and running <code>:h lspconfig-all</code>. I use Pyright, which works pretty well, and seems to be the most popular choice.</p>
 <p>If you use Mason, you can download it with that, or if you&rsquo;re on Arch like me, a simple</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S pyright
@@ -563,27 +552,13 @@ There are many LSPs for Python, some of which you can read about by opening Neov
 </span></span></code></pre></div><p>Now we need to enable Pyright in our <code>init.lua</code>, or alternative, a separate Lua file that we <code>require</code> in <code>init.lua</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>vim.lsp.enable(<span style="color:#a6d189">&#39;pyright&#39;</span>)
 </span></span></code></pre></div><p>Run <code>:h lspconfig-all</code> and read the Pyright section for details on configuring the LSP - for most use cases, just enabling Pyright should suffice.</p>
-<h3 id="micropython-import-errors-and-stubs-to-the-rescue" >
-<div>
-    <a href="#micropython-import-errors-and-stubs-to-the-rescue">
-        ##
-    </a>
-    Micropython import errors, and stubs to the rescue
-</div>
-</h3>
+<h3 id="">Micropython import errors, and stubs to the rescue</h3>
 <p>Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. <code>machine</code>.
 These libraries exist on the device running Micropython, and so code that imports them runs fine.
 However, when importing these libraries, we get errors in our editor, because these libraries don&rsquo;t exist on our PC/Laptop, so our editor cannot see them.</p>
 <p>This is where stubs come in. Stubs are essentially files that implement all the classes, methods, functions, etc. in a library, but they leave the implementation empty. This allows your LSP to provide information on available functions and their parameters without you having to check the docs. It also gets rid of the import errors, as your system will now be able to see and recognise the Micropython libraries.</p>
 <p>Thankfully, there exists <a href="https://github.com/Josverl/micropython-stubs">a large repository of stubs for various micropython compatible boards</a>, so we don&rsquo;t have to create these files ourselves. Getting these stubs to work involves first installing them, then configuring Pyright to see them.</p>
-<h4 id="installation" >
-<div>
-    <a href="#installation">
-        ###
-    </a>
-    Installation
-</div>
-</h4>
+<h4 id="">Installation</h4>
 <p>We install the stubs with Pip, so you may have to create a virtual environment to use them (due to global Pip installs being forbidden by default in externally managed (i.e., by a package manager) environments - see <a href="https://packaging.python.org/en/latest/specifications/externally-managed-environments/#externally-managed-environments">this document</a> for details).</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv your-venv-name
 </span></span><span style="display:flex;"><span><span style="color:#99d1db">source</span> your-venv-name/bin/activate
@@ -592,14 +567,7 @@ However, when importing these libraries, we get errors in our editor, because th
 micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 </code></pre><div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements-dev.txt --target typings
 </span></span></code></pre></div><p>For more detail, see the <a href="https://micropython-stubs.readthedocs.io/en/main/11_install_stubs.html">stubs documentation</a>.</p>
-<h4 id="configuring-pyright" >
-<div>
-    <a href="#configuring-pyright">
-        ###
-    </a>
-    Configuring Pyright
-</div>
-</h4>
+<h4 id="">Configuring Pyright</h4>
 <p>Pyright is configured using either a <code>pyproject.toml</code> or <code>pyrightconfig.json</code> file. I use the toml file. There are various settings you can use to configure Pyright, documented <a href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">here</a>. Here is my <code>pyproject.toml</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[tool.pyright]
 </span></span><span style="display:flex;"><span>stubPath = <span style="color:#a6d189">&#34;typings&#34;</span>
@@ -623,41 +591,20 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 </span></span><span style="display:flex;"><span>vim.lsp.enable(<span style="color:#a6d189">&#39;pyright&#39;</span>)
 </span></span></code></pre></div><p>For more details on these settings and more, see both the <a href="https://micropython-stubs.readthedocs.io/en/main/22_vscode.html">stub documentation</a> and the <a href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">Pyright documentation</a>.</p>
 <p>And that&rsquo;s it! The LSP should now be up and running, and you should be able to see information about imported classes, methods, etc.</p>
-<h2 id="micropython-without-thonnyvscode" >
-<div>
-    <a href="#micropython-without-thonnyvscode">
-        #
-    </a>
-    Micropython without Thonny/VSCode
-</div>
-</h2>
+<h2 id="">Micropython without Thonny/VSCode</h2>
 <p>Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you&rsquo;re lucky, they might show you how to use VSCode (although I&rsquo;ve only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about <code>rshell</code>.</p>
 <p><code>rshell</code> is a command line utility that allows you to run commands on your board running Micropython. For full details, see its <a href="https://github.com/dhylands/rshell">github page</a>. In this section, I&rsquo;m just going to cover uploading and running files.</p>
 <p><code>rshell</code> is installed through <code>pip</code>, which means we&rsquo;ll need our venv again.</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#99d1db">source</span> your-venv-name/bin/activate
 </span></span><span style="display:flex;"><span>pip install rshell
-</span></span></code></pre></div><h3 id="uploading-code" >
-<div>
-    <a href="#uploading-code">
-        ##
-    </a>
-    Uploading Code
-</div>
-</h3>
+</span></span></code></pre></div><h3 id="">Uploading Code</h3>
 <p>Micropython only runs programs on start-up when you copy them onto the board and name them <code>main.py</code>. To accomplish this, open a terminal, make sure <code>rshell</code> is installed (and, if necessary, make sure your <code>venv</code> is active), then run</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rshell -p /dev/ttyACM0
 </span></span></code></pre></div><p>which will put you into <code>rshell</code>. Your board&rsquo;s serial port might differ from <code>/dev/ttyACM0</code>, in which case, change it accordingly.</p>
 <p>From here, we need to copy over our program to the board. Files on the board are stored under <code>/pyboard/</code>, and you can see files on your system with <code>ls</code>, just like in a normal shell. Bringing this together:</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp my_program.py /pyboard/main.py
 </span></span></code></pre></div><p>And just like that, your program is on your board! Reset your board and it&rsquo;ll start running.</p>
-<h3 id="using-the-repl-for-debugging" >
-<div>
-    <a href="#using-the-repl-for-debugging">
-        ##
-    </a>
-    Using the REPL for debugging
-</div>
-</h3>
+<h3 id="">Using the REPL for debugging</h3>
 <p>I am not particularly well versed in the art of debugging tools - I&rsquo;m still at the stage where print statements here and there typically get the job done. As such, this section is pretty much just dedicated to allowing you to see the printed output of your programs.</p>
 <p>We once again make use of <code>rshell</code>. The trick here is to give your program an explicit main function. In Python, that is done via</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ca9ee6">def</span> <span style="color:#8caaee">main</span>():
