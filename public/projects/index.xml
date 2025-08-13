@@ -31,7 +31,12 @@
 &lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning&lt;/li&gt;
 &lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;&#34;&gt;The implementation details&lt;/h1&gt;
+&lt;figure&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot1_hu_ae85fc5c6b3871c7.jpg&#34; width=&#34;600&#34; height=&#34;338&#34; alt=&#34;A photo of the robot arm&#34;&gt;
+            &lt;figcaption&gt;A photo of the robot arm&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+&lt;h2 id=&#34;&#34;&gt;The implementation details&lt;/h2&gt;
 &lt;p&gt;This project can be split into four parts:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The CAD&lt;/li&gt;
@@ -39,20 +44,34 @@
 &lt;li&gt;The Pico program&lt;/li&gt;
 &lt;li&gt;The web interface&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;&#34;&gt;The CAD&lt;/h2&gt;
-&lt;p&gt;The robot was designed using FreeCAD. I designed all the parts myself, except the claw (currently). While it certainly works, there are a lot of things I would have done differently if I were to start over.&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;The electronics&lt;/h2&gt;
-&lt;p&gt;The electronics in this project are so simple they&amp;rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on the Pico, and the whole project is powered by a 5V power supply. All the wiring lives on a breadboard.&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;The pico program&lt;/h2&gt;
-&lt;p&gt;The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated.&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;The web interface&lt;/h2&gt;
-&lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle control) and a few buttons. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The CAD&lt;/h3&gt;
+&lt;p&gt;The robot was designed using FreeCAD. I designed all the parts myself. While it certainly works, there are a lot of things I would have done differently if I were to start over:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to mutliple sheets&lt;/li&gt;
+&lt;li&gt;Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;TODO: Test this on a phone screen and see if the images are forced to stack&lt;/strong&gt;
+&lt;div style=&#34;display: flex; justify-content: center;&#34;&gt;&lt;figure&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_base_hu_8c4f0ebd755552ea.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot base&#34;&gt;
+            &lt;figcaption&gt;CAD model of the robot base&lt;/figcaption&gt;
+        &lt;/figure&gt;&lt;figure&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_wrist_hu_e2bd08259e454329.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot wrist&#34;&gt;
+            &lt;figcaption&gt;CAD model of the robot wrist&lt;/figcaption&gt;
+        &lt;/figure&gt;&lt;/div&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The electronics&lt;/h3&gt;
+&lt;p&gt;The electronics in this project are so simple they&amp;rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on a Raspberry Pi Pico W, and the whole project is powered by a 5V wall power supply. All the wiring lives on a breadboard.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The pico program&lt;/h3&gt;
+&lt;p&gt;The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated. A better way to do this would to be use Websockets, but I don&amp;rsquo;t have experience with them, and chose to simplify the project for myself with long polling.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The web interface&lt;/h3&gt;
+&lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle and claw control) and a few buttons. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;
 &lt;p&gt;The HTTP server is written in Python, making use of the &lt;code&gt;ThreadingHTTPServer&lt;/code&gt; class from the &lt;a href=&#34;https://docs.python.org/3/library/http.server.html&#34;&gt;http.server&lt;/a&gt; library. As mentioned in the last section, long polling is used to send data to the Pico; when the server receives a GET request, it checks for updates to the &lt;code&gt;angles.json&lt;/code&gt; file using timestamps, and sends angles only when the JSON has been updated.&lt;/p&gt;
-&lt;h1 id=&#34;&#34;&gt;The story&lt;/h1&gt;
+&lt;h2 id=&#34;&#34;&gt;The story&lt;/h2&gt;
 &lt;p&gt;Back in September 2024, I began creating my own robot arm. I learnt a lot about CAD, Micropython, gears (although, there aren&amp;rsquo;t any in this robot, bar those within servos), and forward/inverse kinematics.
 By the end of December, I had a &amp;ldquo;working&amp;rdquo; robot arm (I couldn&amp;rsquo;t get the inverese kinematics to work!). I didn&amp;rsquo;t really have a way to control it though, bar writing motor movements into the code, then editing and reuploading the code. At this point I put the arm aside to work on my quadcopter (&lt;strong&gt;post on that coming soon!!&lt;/strong&gt;).&lt;/p&gt;
-&lt;p&gt;Recently I returned to finish off the project. I was losing interest in my quadcopter and had just seen the trailer for KBot by K-Scale Labs. My interest in robotics has always been tied to the idea of getting robots to do menial house chores for me lol. Seeing how much development was going on in the area of humanoid robotics made me want to finish my arm project.
-I have since created a web interface to control the robot, and am currently redesigning the wrist and claw. Following that, I plan to take another crack at inverse kinematics, and maybe add a camera to the arm, then learn ROS2 to implement some motion planning algorithms.&lt;/p&gt;
+&lt;p&gt;Recently I returned to finish off the project. I was losing interest in my quadcopter and had just seen the trailer for KBot by K-Scale Labs. My interest in robotics has always been tied to the idea of getting robots to do menial house chores for me, lol. Seeing how much development was going on in the area of humanoid robotics made me want to finish my arm project.
+I have since created a web interface to control the robot, redesigned the wrist to use a bigger motor, and redesigned the claw to be able to pick up lego figures (a suitable test subject which I happen to have in abundance).&lt;/p&gt;
+&lt;p&gt;The next step is to finish relearning forward/inverse kinematics. I have revised my knowledge of rotation matrices and homogenous transformations, and am slowly making my way through &lt;em&gt;Robot Modelling and Control&lt;/em&gt; by Spong, Hutchinson, and Vidyasagar. Following this, I plan to train an object detection model to identify lego figures, and combine the inverse kinematics and computer vision algorithms together, allowing the robot to pick up lego figures and move them around.&lt;/p&gt;
 </description>
     </item>
     

@@ -1,0 +1,40 @@
+<div style="display: flex; justify-content: center;">
+{{- with .Get "path" }}
+  {{- with $r := $.Page.Resources.Get ($.Get "path") }}
+    {{- with $.Get "width" }}
+      {{- with $r.Process (printf "resize %dx wepb" ($.Get "width" )) }}
+        {{- $alt := or ($.Get "alt") "" -}}
+        <figure>
+            <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}">
+            <figcaption>{{ $alt }}</figcaption>
+        </figure>
+      {{- end }}
+    {{- else }}
+      {{- errorf "The %q shortcode requires a 'width' argument: see %s" $.Name $.Position }}
+    {{- end }}
+  {{- else }}
+    {{- warnf "The %q shortcode was unable to find %s: see %s" $.Name ($.Get "path") $.Position }}
+  {{- end }}
+{{- else }}
+  {{- errorf "The %q shortcode requires a 'path' argument: see %s" .Name .Position }}
+{{- end -}}
+{{- with .Get "path2" }}
+  {{- with $r := $.Page.Resources.Get ($.Get "path2") }}
+    {{- with $.Get "width" }}
+      {{- with $r.Process (printf "resize %dx wepb" ($.Get "width" )) }}
+        {{- $alt2 := or ($.Get "alt2") "" -}}
+        <figure>
+            <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt2="{{ $alt2 }}">
+            <figcaption>{{ $alt2 }}</figcaption>
+        </figure>
+      {{- end }}
+    {{- else }}
+      {{- errorf "The %q shortcode requires a 'width' argument: see %s" $.Name $.Position }}
+    {{- end }}
+  {{- else }}
+    {{- warnf "The %q shortcode was unable to find %s: see %s" $.Name ($.Get "path") $.Position }}
+  {{- end }}
+{{- else }}
+  {{- errorf "The %q shortcode requires a 'path2' argument: see %s" .Name .Position }}
+{{- end -}}
+</div>
