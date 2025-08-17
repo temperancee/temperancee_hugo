@@ -13,26 +13,37 @@
     
 
     
-    <lastBuildDate>Sat, 12 Jul 2025 17:06:42 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 17 Aug 2025 09:08:42 +0100</lastBuildDate>
     
     <atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Hes the Boss</title>
+      <link>/projects/hes_the_boss/</link>
+      <pubDate>Sun, 17 Aug 2025 09:08:42 +0100</pubDate>
+      
+      <guid>/projects/hes_the_boss/</guid>
+      <description>
+&lt;a href=&#34;boss_nigger_(1975).mp4&#34; download&gt;BOSS&lt;/a&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Robot Arm</title>
       <link>/projects/robot_arm/</link>
-      <pubDate>Sat, 12 Jul 2025 17:06:42 +0100</pubDate>
+      <pubDate>Fri, 15 Aug 2025 09:08:42 +0100</pubDate>
       
       <guid>/projects/robot_arm/</guid>
       <description>&lt;p&gt;This page documents my work on building a robot arm. At a glance this project covers:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Designing the arm in FreeCAD and 3D printing it&lt;/li&gt;
 &lt;li&gt;Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server&lt;/li&gt;
-&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning&lt;/li&gt;
+&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - I am currently working on adding inverse kinematics and a camera for object detection and motion planning&lt;/li&gt;
 &lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
 &lt;/ul&gt;
 &lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot1_hu_ae85fc5c6b3871c7.jpg&#34; width=&#34;600&#34; height=&#34;338&#34; alt=&#34;A photo of the robot arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot1_hu_4074a1aeb63cbacd.jpg&#34; width=&#34;600&#34; height=&#34;661&#34; alt=&#34;A photo of the robot arm&#34;&gt;
             &lt;figcaption&gt;A photo of the robot arm&lt;/figcaption&gt;
         &lt;/figure&gt;
 
@@ -50,18 +61,17 @@
 &lt;li&gt;Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to mutliple sheets&lt;/li&gt;
 &lt;li&gt;Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;TODO: Test this on a phone screen and see if the images are forced to stack&lt;/strong&gt;
-&lt;div style=&#34;display: flex; justify-content: center;&#34;&gt;&lt;figure&gt;
+&lt;div class=&#34;image-shortcode&#34;&gt;&lt;figure&gt;
             &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_base_hu_8c4f0ebd755552ea.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot base&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot base&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
             &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_wrist_hu_e2bd08259e454329.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot wrist&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot wrist&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
-&lt;/p&gt;
+
 &lt;h3 id=&#34;&#34;&gt;The electronics&lt;/h3&gt;
 &lt;p&gt;The electronics in this project are so simple they&amp;rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on a Raspberry Pi Pico W, and the whole project is powered by a 5V wall power supply. All the wiring lives on a breadboard.&lt;/p&gt;
-&lt;h3 id=&#34;&#34;&gt;The pico program&lt;/h3&gt;
+&lt;h3 id=&#34;&#34;&gt;The Pico program&lt;/h3&gt;
 &lt;p&gt;The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated. A better way to do this would to be use Websockets, but I don&amp;rsquo;t have experience with them, and chose to simplify the project for myself with long polling.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;The web interface&lt;/h3&gt;
 &lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle and claw control) and a few buttons. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;

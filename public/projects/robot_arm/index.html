@@ -24,7 +24,7 @@
 
 Designing the arm in FreeCAD and 3D printing it
 Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
-Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning
+Creating the web interface to control the robot. Currently, you control angles - I am currently working on adding inverse kinematics and a camera for object detection and motion planning
 Using threading to make use of the Pico&rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface
 
 
@@ -89,7 +89,7 @@ This project can be split into four parts:">
     
 
     
-        <link rel="stylesheet" href="/css/style.ff9b1e67c03524691d3cff5b7bf7628851356649cf8302221ee18b33e90b81be.css" integrity="sha256-/5seZ8A1JGkdPP9be/diiFE1ZknPgwIiHuGLM&#43;kLgb4=">
+        <link rel="stylesheet" href="/css/style.3d97b2615a86ec4dd98935ae73843369824b2e4af93c5ebf4516774efe09c462.css" integrity="sha256-PZeyYVqG7E3ZiTWuc4QzaYJLLkr5PF6/RRZ3Tv4JxGI=">
     
 
 
@@ -466,7 +466,7 @@ This project can be split into four parts:">
 <div class="post-info noselect">
     
         <div class="post-date dt-published">
-            <time datetime="2025-07-12">2025-07-12</time>
+            <time datetime="2025-08-15">2025-08-15</time>
             
         </div>
     
@@ -502,7 +502,7 @@ This project can be split into four parts:">
       <ul>
         <li><a href="#">The CAD</a></li>
         <li><a href="#">The electronics</a></li>
-        <li><a href="#">The pico program</a></li>
+        <li><a href="#">The Pico program</a></li>
         <li><a href="#">The web interface</a></li>
       </ul>
     </li>
@@ -537,7 +537,7 @@ This project can be split into four parts:">
 <ul>
 <li>Designing the arm in FreeCAD and 3D printing it</li>
 <li>Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server</li>
-<li>Creating the web interface to control the robot. Currently, you control angles - in the future I would like to add inverse kinematics and a camera for motion planning</li>
+<li>Creating the web interface to control the robot. Currently, you control angles - I am currently working on adding inverse kinematics and a camera for object detection and motion planning</li>
 <li>Using threading to make use of the Pico&rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface</li>
 </ul>
 <figure>
@@ -559,18 +559,17 @@ This project can be split into four parts:">
 <li>Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to mutliple sheets</li>
 <li>Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?</li>
 </ul>
-<p><strong>TODO: Test this on a phone screen and see if the images are forced to stack</strong>
-<div style="display: flex; justify-content: center;"><figure>
+<div class="image-shortcode"><figure>
             <img src="/projects/robot_arm/cad_base_hu_8c4f0ebd755552ea.png" width="400" height="400" alt="CAD model of the robot base">
             <figcaption>CAD model of the robot base</figcaption>
         </figure><figure>
             <img src="/projects/robot_arm/cad_wrist_hu_e2bd08259e454329.png" width="400" height="400" alt2="CAD model of the robot wrist">
             <figcaption>CAD model of the robot wrist</figcaption>
         </figure></div>
-</p>
+
 <h3 id="">The electronics</h3>
 <p>The electronics in this project are so simple they&rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on a Raspberry Pi Pico W, and the whole project is powered by a 5V wall power supply. All the wiring lives on a breadboard.</p>
-<h3 id="">The pico program</h3>
+<h3 id="">The Pico program</h3>
 <p>The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the <a href="https://docs.micropython.org/en/latest/library/_thread.html">_thread</a> library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated. A better way to do this would to be use Websockets, but I don&rsquo;t have experience with them, and chose to simplify the project for myself with long polling.</p>
 <h3 id="">The web interface</h3>
 <p>The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle and claw control) and a few buttons. Maybe I&rsquo;ll add some CSS in the future.</p>
