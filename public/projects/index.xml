@@ -13,21 +13,10 @@
     
 
     
-    <lastBuildDate>Sun, 17 Aug 2025 09:08:42 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 15 Aug 2025 09:08:42 +0100</lastBuildDate>
     
     <atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Hes the Boss</title>
-      <link>/projects/hes_the_boss/</link>
-      <pubDate>Sun, 17 Aug 2025 09:08:42 +0100</pubDate>
-      
-      <guid>/projects/hes_the_boss/</guid>
-      <description>
-&lt;a href=&#34;boss_nigger_(1975).mp4&#34; download&gt;BOSS&lt;/a&gt;
-</description>
-    </item>
     
     <item>
       <title>Robot Arm</title>
@@ -62,11 +51,11 @@
 &lt;li&gt;Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;image-shortcode&#34;&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_base_hu_8c4f0ebd755552ea.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot base&#34;&gt;
-            &lt;figcaption&gt;CAD model of the robot base&lt;/figcaption&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_376a5dc76479bc70.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
+            &lt;figcaption&gt;CAD model of the robot arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/cad_wrist_hu_e2bd08259e454329.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot wrist&#34;&gt;
-            &lt;figcaption&gt;CAD model of the robot wrist&lt;/figcaption&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_alt_pos_hu_2e8fb6b295fcb0a.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot in a different position&#34;&gt;
+            &lt;figcaption&gt;CAD model of the robot in a different position&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
 
 &lt;h3 id=&#34;&#34;&gt;The electronics&lt;/h3&gt;

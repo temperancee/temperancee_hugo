@@ -26,7 +26,7 @@ The robot was designed using FreeCAD. I designed all the parts myself. While it 
 - Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to mutliple sheets
 - Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?
 
-{{< pair_figure path=cad_base.png path2=cad_wrist.png width=400 alt="CAD model of the robot base" alt2="CAD model of the robot wrist" >}}
+{{< pair_figure path=robot_arm_cad_model.png path2=robot_arm_cad_model_alt_pos.png width=400 alt="CAD model of the robot arm" alt2="CAD model of the robot in a different position" >}}
 
 
 ### The electronics 
