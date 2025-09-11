@@ -26,29 +26,42 @@
       <guid>/projects/robot_arm/</guid>
       <description>&lt;p&gt;This page documents my work on building a robot arm. At a glance this project covers:&lt;/p&gt;
 &lt;ul&gt;
+&lt;li&gt;Deriving the inverse kinematics equaitons for a 5DOF robot arm, and implementing them in simulation and on hardware, handling various edge cases and hardware limitations&lt;/li&gt;
+&lt;li&gt;Writing a simulator in matplotlib for both not only the 5DOF arm but also a 6DOF arm&lt;/li&gt;
 &lt;li&gt;Designing the arm in FreeCAD and 3D printing it&lt;/li&gt;
 &lt;li&gt;Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server&lt;/li&gt;
-&lt;li&gt;Creating the web interface to control the robot. Currently, you control angles - I am currently working on adding inverse kinematics and a camera for object detection and motion planning&lt;/li&gt;
-&lt;li&gt;Using threading to make use of the Pico&amp;rsquo;s dual cores, and threading on the web server to allow for simultaneous commuication with the Pico and web interface&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Repositories: Robot Arm, &lt;a href=&#34;https://github.com/temperancee/robot_arm_kinematics_simulation&#34;&gt;Simulation&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;
             &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot1_hu_4074a1aeb63cbacd.jpg&#34; width=&#34;600&#34; height=&#34;661&#34; alt=&#34;A photo of the robot arm&#34;&gt;
             &lt;figcaption&gt;A photo of the robot arm&lt;/figcaption&gt;
         &lt;/figure&gt;
 
 &lt;h2 id=&#34;&#34;&gt;The implementation details&lt;/h2&gt;
-&lt;p&gt;This project can be split into four parts:&lt;/p&gt;
+&lt;p&gt;This project can be split into seven parts:&lt;/p&gt;
 &lt;ul&gt;
+&lt;li&gt;The kinematics&lt;/li&gt;
+&lt;li&gt;The simulation&lt;/li&gt;
 &lt;li&gt;The CAD&lt;/li&gt;
 &lt;li&gt;The electronics&lt;/li&gt;
 &lt;li&gt;The Pico program&lt;/li&gt;
+&lt;li&gt;The server program&lt;/li&gt;
 &lt;li&gt;The web interface&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;&#34;&gt;Some terminology&lt;/h2&gt;
+&lt;p&gt;I refer to &amp;rsquo;links&amp;rsquo; and &amp;lsquo;joints&amp;rsquo; throughout this article - joints are the servo motors (i.e., the things that make the robot rotate), and links are the things that hold the joints together.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The kinematics&lt;/h3&gt;
+&lt;p&gt;I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It&amp;rsquo;s a pretty good book, but doesn&amp;rsquo;t give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly differnet. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot&amp;rsquo;s motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The simulation&lt;/h3&gt;
+&lt;p&gt;The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;model-view-controller&lt;/a&gt; pattern, which keeps the code nice and organised.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;The CAD&lt;/h3&gt;
-&lt;p&gt;The robot was designed using FreeCAD. I designed all the parts myself. While it certainly works, there are a lot of things I would have done differently if I were to start over:&lt;/p&gt;
+&lt;p&gt;The robot was designed using FreeCAD. I designed all the parts myself. While the robot works, there are a lot of things I would have done differently if I were to start over:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to mutliple sheets&lt;/li&gt;
-&lt;li&gt;Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?&lt;/li&gt;
+&lt;li&gt;Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?
+More importantly, the robot is very unstable. This was my first CAD design where knowledge of mechanical design techniques (which I possess very little of) played an important role.&lt;/li&gt;
+&lt;li&gt;The shoulder joint was designed to just slot into the base, this means there is a lot of wiggle, so the positions taken by the model are often off by a couple of millimetres.&lt;/li&gt;
+&lt;li&gt;The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;image-shortcode&#34;&gt;&lt;figure&gt;
             &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_376a5dc76479bc70.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
@@ -59,18 +72,18 @@
         &lt;/figure&gt;&lt;/div&gt;
 
 &lt;h3 id=&#34;&#34;&gt;The electronics&lt;/h3&gt;
-&lt;p&gt;The electronics in this project are so simple they&amp;rsquo;re not really worth mentioning - the servo motors are connected directly to PWM pins on a Raspberry Pi Pico W, and the whole project is powered by a 5V wall power supply. All the wiring lives on a breadboard.&lt;/p&gt;
+&lt;p&gt;The electronics in this project are very simple. The robot is controlled by a Raspberry Pi Pico W which connects to a PCA9685 servo driver board via I2C. The four MG99R servos and the one MG90s servo motor are connected to and controlled by this servo driver. The Pico receives joint angles from my PC via USB, then sends the angles to the servo driver, which then moves the servos. All the wiring lives on a breadboard.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;The Pico program&lt;/h3&gt;
-&lt;p&gt;The Pico code is written in Micropython. Both cores on the Pico are utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control is handled by core0 and networking is handled by core1. Servo control is implemented as a callback that activates every time servo angles are sent from the webserver. Long polling is used: The Pico sends a HTTP GET request for angles to the server, and the server responds when they are updated. A better way to do this would to be use Websockets, but I don&amp;rsquo;t have experience with them, and chose to simplify the project for myself with long polling.&lt;/p&gt;
+&lt;p&gt;The Pico code is written in Micropython. Originally, both cores on the Pico were utilised, courtesy of the &lt;a href=&#34;https://docs.micropython.org/en/latest/library/_thread.html&#34;&gt;_thread&lt;/a&gt; library. Servo control was handled by core0 and networking was handled by core1. Servo control was implemented as a callback that activated every time servo angles were sent from the server (my PC). Long polling was used: The Pico sent a HTTP GET request for angles to the server, and the server responds when they are updated. Unfortunately, this wasn&amp;rsquo;t the most reliable form of commuication, and it included lots of overhead. I wanted to simplify the process using Websockets rather than long polling, but couldn&amp;rsquo;t find any decent libraries that allowed to Pico to use Websockets while acting as a client, and my networking knowledge is limited to the point where I didn&amp;rsquo;t want to write my own.&lt;/p&gt;
+&lt;p&gt;My solution came in the form of an even further simplification. Since my robot and server (PC) are always next to each other anyway, I simply chose to send servo angles from my PC to the Pico over USB, using &lt;a href=&#34;https://pythonhosted.org/pyserial/&#34;&gt;pyserial&lt;/a&gt;. This made the code on the Pico much simpler, and threading was no longer needed. Now the Pico simply waits for data to be received, then moves the servos accordingly via &lt;a href=&#34;https://github.com/kevinmcaleer/pca9685_for_pico&#34;&gt;Kevin McAleer&amp;rsquo;s micropython PCA9685 library&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;&#34;&gt;The server&lt;/h3&gt;
+&lt;p&gt;Originally, the server used the &lt;code&gt;ThreadingHTTPServer&lt;/code&gt; class from the &lt;a href=&#34;https://docs.python.org/3/library/http.server.html&#34;&gt;http.server&lt;/a&gt; library for commuication with both the web interface and the Pico. As mentioned in the last section, the Pico now receives data via USB, and with this change I also moved to using the &lt;a href=&#34;https://microdot.readthedocs.io/en/latest/&#34;&gt;Microdot&lt;/a&gt; library for communication with the web interface. This makes the code a lot more readable by hiding away all the HTTP boilerplate.&lt;/p&gt;
+&lt;p&gt;The server receives data from the web server: either angles or pose. Angles are immediately sent to the Pico, whereas pose data is first passed to the inverse kinematics method of the robot arm object, different arm configurations (e.g., elbow up vs elbow down) are checked for validity, and the resulting angles are sent over to the Pico, which then moves the servos.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;The web interface&lt;/h3&gt;
-&lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle and claw control) and a few buttons. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;
-&lt;p&gt;The HTTP server is written in Python, making use of the &lt;code&gt;ThreadingHTTPServer&lt;/code&gt; class from the &lt;a href=&#34;https://docs.python.org/3/library/http.server.html&#34;&gt;http.server&lt;/a&gt; library. As mentioned in the last section, long polling is used to send data to the Pico; when the server receives a GET request, it checks for updates to the &lt;code&gt;angles.json&lt;/code&gt; file using timestamps, and sends angles only when the JSON has been updated.&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;The story&lt;/h2&gt;
-&lt;p&gt;Back in September 2024, I began creating my own robot arm. I learnt a lot about CAD, Micropython, gears (although, there aren&amp;rsquo;t any in this robot, bar those within servos), and forward/inverse kinematics.
-By the end of December, I had a &amp;ldquo;working&amp;rdquo; robot arm (I couldn&amp;rsquo;t get the inverese kinematics to work!). I didn&amp;rsquo;t really have a way to control it though, bar writing motor movements into the code, then editing and reuploading the code. At this point I put the arm aside to work on my quadcopter (&lt;strong&gt;post on that coming soon!!&lt;/strong&gt;).&lt;/p&gt;
-&lt;p&gt;Recently I returned to finish off the project. I was losing interest in my quadcopter and had just seen the trailer for KBot by K-Scale Labs. My interest in robotics has always been tied to the idea of getting robots to do menial house chores for me, lol. Seeing how much development was going on in the area of humanoid robotics made me want to finish my arm project.
-I have since created a web interface to control the robot, redesigned the wrist to use a bigger motor, and redesigned the claw to be able to pick up lego figures (a suitable test subject which I happen to have in abundance).&lt;/p&gt;
-&lt;p&gt;The next step is to finish relearning forward/inverse kinematics. I have revised my knowledge of rotation matrices and homogenous transformations, and am slowly making my way through &lt;em&gt;Robot Modelling and Control&lt;/em&gt; by Spong, Hutchinson, and Vidyasagar. Following this, I plan to train an object detection model to identify lego figures, and combine the inverse kinematics and computer vision algorithms together, allowing the robot to pick up lego figures and move them around.&lt;/p&gt;
+&lt;p&gt;The front end of the web interface is an exceedingly basic HTML file, containing only 6 sliders (for angle and claw control), some text boxes to specify position and orientation and a few buttons to submit data. Maybe I&amp;rsquo;ll add some CSS in the future.&lt;/p&gt;
+&lt;h2 id=&#34;&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;As I mentioned in the CAD section, this robot, while functional, leaves a lot of room for improvement. This is of no surprise, since this was my first time building a robot, and I was bound to make mistakes. Nevertheless, I am due an upgrade. Over the course of this project, I most enjoyed working on the mathematics and programming side of things, as opposed to the CAD design and electronics. With that in mind, I have decided to build a &lt;a href=&#34;https://huggingface.co/docs/lerobot/so101&#34;&gt;LeRobot SO-101&lt;/a&gt; arm for the next stage of this project (and some future projects using reinforcement learning hopefully).&lt;/p&gt;
+&lt;p&gt;The next stage is the addition of a camera to the workspace, which will run an object detection algorithm written in PyTorch - I&amp;rsquo;m currently learning about convolutional neural networks. I can then use my knowledge of rigid motions (learnt from Robot Modelling and Control) to determine the position of the objects detected in the camera frame to get their coordinates in the base frame, and move the robot accordingly.&lt;/p&gt;
 </description>
     </item>
     
