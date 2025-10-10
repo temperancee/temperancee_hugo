@@ -23,7 +23,7 @@
 <meta name="description" content="This page documents my work on building a robot arm. At a glance this project covers:
 
 Deriving the inverse kinematics equaitons for a 5DOF robot arm, and implementing them in simulation and on hardware, handling various edge cases and hardware limitations
-Writing a simulator in matplotlib for both not only the 5DOF arm but also a 6DOF arm
+Writing a simulator in matplotlib for not only the 5DOF arm but also a 6DOF arm
 Designing the arm in FreeCAD and 3D printing it
 Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
@@ -492,7 +492,6 @@ Repositories: Robot Arm, Simulation">
     <summary>Table of Contents</summary>
     <div class="inner"><nav id="TableOfContents">
   <ul>
-    <li><a href="#">The implementation details</a></li>
     <li><a href="#">Some terminology</a>
       <ul>
         <li><a href="#">The kinematics</a></li>
@@ -534,7 +533,7 @@ Repositories: Robot Arm, Simulation">
             <p>This page documents my work on building a robot arm. At a glance this project covers:</p>
 <ul>
 <li>Deriving the inverse kinematics equaitons for a 5DOF robot arm, and implementing them in simulation and on hardware, handling various edge cases and hardware limitations</li>
-<li>Writing a simulator in matplotlib for both not only the 5DOF arm but also a 6DOF arm</li>
+<li>Writing a simulator in matplotlib for not only the 5DOF arm but also a 6DOF arm</li>
 <li>Designing the arm in FreeCAD and 3D printing it</li>
 <li>Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server</li>
 </ul>
@@ -544,7 +543,14 @@ Repositories: Robot Arm, Simulation">
             <figcaption>A photo of the robot arm</figcaption>
         </figure>
 
-<h2 id="">The implementation details</h2>
+<p><video controls preload="auto" width="40%"  muted playsinline class="html-video">
+    <source src="/projects/robot_arm/wrist_robot_arm.mp4" type="video/mp4">
+  <span></span>
+</video>
+<video controls preload="auto" width="40%"  muted playsinline class="html-video">
+    <source src="/projects/robot_arm/square_robot_arm.mp4" type="video/mp4">
+  <span></span>
+</video></p>
 <p>This project can be split into seven parts:</p>
 <ul>
 <li>The kinematics</li>
@@ -556,11 +562,11 @@ Repositories: Robot Arm, Simulation">
 <li>The web interface</li>
 </ul>
 <h2 id="">Some terminology</h2>
-<p>I refer to &rsquo;links&rsquo; and &lsquo;joints&rsquo; throughout this article - joints are the servo motors (i.e., the things that make the robot rotate), and links are the things that hold the joints together.</p>
+<p>I refer to &rsquo;links&rsquo; and &lsquo;joints&rsquo; throughout this article - joints are the servo motors (i.e., the things that make the parts of the arm rotate (although, more generally, joints do not have to be rotational)), and links are the things that hold the joints together.</p>
 <h3 id="">The kinematics</h3>
-<p>I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It&rsquo;s a pretty good book, but doesn&rsquo;t give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly differnet. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot&rsquo;s motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.</p>
+<p>I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It&rsquo;s a pretty good book, but doesn&rsquo;t give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly different. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot&rsquo;s motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.</p>
 <h3 id="">The simulation</h3>
-<p>The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">model-view-controller</a> pattern, which keeps the code nice and organised.</p>
+<p>The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">model-view-controller</a> pattern, which keeps the code nice and organised.</p>
 <h3 id="">The CAD</h3>
 <p>The robot was designed using FreeCAD. I designed all the parts myself. While the robot works, there are a lot of things I would have done differently if I were to start over:</p>
 <ul>
@@ -568,7 +574,7 @@ Repositories: Robot Arm, Simulation">
 <li>Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?
 More importantly, the robot is very unstable. This was my first CAD design where knowledge of mechanical design techniques (which I possess very little of) played an important role.</li>
 <li>The shoulder joint was designed to just slot into the base, this means there is a lot of wiggle, so the positions taken by the model are often off by a couple of millimetres.</li>
-<li>The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position.</li>
+<li>The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position. For this reason, there aren&rsquo;t any videos of the robot actually picking anything up in this article.</li>
 </ul>
 <div class="image-shortcode"><figure>
             <img src="/projects/robot_arm/robot_arm_cad_model_hu_376a5dc76479bc70.png" width="400" height="400" alt="CAD model of the robot arm">

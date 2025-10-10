@@ -6,7 +6,7 @@ title = 'Robot Arm'
 
 This page documents my work on building a robot arm. At a glance this project covers:
 - Deriving the inverse kinematics equaitons for a 5DOF robot arm, and implementing them in simulation and on hardware, handling various edge cases and hardware limitations
-- Writing a simulator in matplotlib for both not only the 5DOF arm but also a 6DOF arm
+- Writing a simulator in matplotlib for not only the 5DOF arm but also a 6DOF arm
 - Designing the arm in FreeCAD and 3D printing it
 - Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
@@ -14,7 +14,8 @@ Repositories: Robot Arm, [Simulation](https://github.com/temperancee/robot_arm_k
 
 {{< single_figure path=robot1.jpg width=600 alt="A photo of the robot arm" >}}
 
-## The implementation details
+{{< video src=wrist_robot_arm width=40% muted="true" >}}
+{{< video src=square_robot_arm width=40% muted="true" >}}
 
 This project can be split into seven parts:
 - The kinematics
@@ -27,15 +28,15 @@ This project can be split into seven parts:
 
 ## Some terminology
 
-I refer to 'links' and 'joints' throughout this article - joints are the servo motors (i.e., the things that make the robot rotate), and links are the things that hold the joints together.
+I refer to 'links' and 'joints' throughout this article - joints are the servo motors (i.e., the things that make the parts of the arm rotate (although, more generally, joints do not have to be rotational)), and links are the things that hold the joints together.
 
 ### The kinematics
 
-I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It's a pretty good book, but doesn't give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly differnet. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot's motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.
+I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It's a pretty good book, but doesn't give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly different. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot's motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.
 
 ### The simulation
 
-The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the [model-view-controller](https://en.wikipedia.org/wiki/Model–view–controller) pattern, which keeps the code nice and organised.
+The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the [model-view-controller](https://en.wikipedia.org/wiki/Model–view–controller) pattern, which keeps the code nice and organised.
 
 ### The CAD
 
@@ -44,7 +45,7 @@ The robot was designed using FreeCAD. I designed all the parts myself. While the
 - Similarly, figuring out a more logical way to manage projects - when should I make a new file vs just a new body?
 More importantly, the robot is very unstable. This was my first CAD design where knowledge of mechanical design techniques (which I possess very little of) played an important role.
 - The shoulder joint was designed to just slot into the base, this means there is a lot of wiggle, so the positions taken by the model are often off by a couple of millimetres.
-- The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position.
+- The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position. For this reason, there aren't any videos of the robot actually picking anything up in this article.
 
 {{< pair_figure path=robot_arm_cad_model.png path2=robot_arm_cad_model_alt_pos.png width=400 alt="CAD model of the robot arm" alt2="CAD model of the robot in a different position" >}}
 
