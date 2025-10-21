@@ -1,0 +1,77 @@
+{{/*
+Written by me
+This shortcode creates two figures side by side (formatting is due to the 
+pair-figure-shortcode class, styled in main.css) both containing different
+videos. You must specify the variables below. 
+
+Note for future self, the .Get syntax is used to get the value of an argument
+when the shortcode is called.
+{{ with }} blocks are used throughout. I think this is beneficial for error checking,
+althought I haven't actually bothered to add any. All such blocks must end with a
+{{ end }} The $. syntax is used to get the context that is passed to the template.
+Since this shortcode is used on a page, the context is a page object in this case.
+*/}}
+
+
+{{- $src1 := $.Get "src1" -}}
+{{- $src2 := $.Get "src2" -}}
+{{- $type1 := $.Get "type1" -}}
+{{- $type2 := $.Get "type2" -}}
+{{- $caption1 := $.Get "caption1" -}}
+{{- $caption2 := $.Get "caption2" -}}
+{{- $width := $.Get "width" -}}
+{{- $height := $.Get "height" -}}
+{{- $muted := $.Get "muted" -}}
+{{- $loop := $.Get "loop" -}}
+{{- $autoplay := $.Get "autoplay" -}}
+<div class="pair-figure-shortcode">
+{{- with $src1 := $.Page.Resources.Get ($src1) }}
+    {{- with $type1 := $.Get "type1" }}
+        {{- if $caption1 }}
+        <figure>
+        {{- end }}
+            <video width="{{ with $width }}{{ . }}{{ else }}{{ "400" }}{{ end }}" height="600" 
+                {{- if $muted }}
+                    muted
+                {{- end }}
+                {{- if $loop }}
+                    loop
+                {{- end }}
+                {{- if $autoplay }}
+                    autoplay
+                {{- end }}
+                controls>
+                <source src="{{ $src1 }}" type="video/{{ $type1 }}"> There is a video here, but your browser does not support the video tag.
+            </video>
+        {{- with $caption1 -}}
+            <figcaption>{{ . }}</figcaption>
+        </figure>
+        {{- end }}
+    {{- end }}
+{{- end }}
+{{- with $src2 := $.Page.Resources.Get ($src2) }}
+    {{- with $type2 := $.Get "type2" }}
+        {{- if $caption2 }}
+        <figure>
+        {{- end }}
+            <video width="{{ with $width }}{{ . }}{{ else }}{{ "400" }}{{ end }}" height="600" 
+                {{- if $muted }}
+                    muted
+                {{- end }}
+                {{- if $loop }}
+                    loop
+                {{- end }}
+                {{- if $autoplay }}
+                    autoplay
+                {{- end }}
+                controls>
+                <source src="{{ $src2 }}" type="video/{{ $type2 }}">
+            There is a video here, but your browser does not support the video tag.
+            </video>
+        {{- with $caption2 -}}
+            <figcaption>{{ . }}</figcaption>
+        </figure>
+        {{- end }}
+    {{- end }}
+{{- end }}
+</div>

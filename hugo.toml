@@ -25,7 +25,9 @@ name = "temperancee"
 
     social = [
         { id = "github", url = "https://github.com/temperancee" },
-        { id = "youtube", url = "https://youtube.com/@temperanceeeee" }
+        { id = "linkedin", url = "https://www.linkedin.com/in/myles-foy-856875279/" },
+        { id = "email", url = "mfoy1655@yahoo.com" }
+        # { id = "youtube", url = "https://youtube.com/@temperanceeeee" }
     ]
     colorTheme = "dark"
     

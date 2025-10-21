@@ -947,7 +947,7 @@ ul.footer-menu>li {
 
 /* Custom CSS (move in future) */
 
-.pair-figure-shortcode {
+.image-shortcode {
     display: flex;
     justify-content: center;
 }
@@ -991,7 +991,7 @@ ul.footer-menu>li {
     }
 
     /* Added by me */
-    .pair-figure-shortcode {
+    .image-shortcode {
         flex-direction: column;
         align-items: center;
     }
