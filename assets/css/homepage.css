@@ -15,3 +15,7 @@
 .centered {
     text-align: center;
 }
+
+@media (max-width: 840px) {
+    margin: 0px 0px;
+}
