@@ -27,6 +27,7 @@ Writing a simulator in matplotlib for not only the 5DOF arm but also a 6DOF arm
 Designing the arm in FreeCAD and 3D printing it
 Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
+
 Repositories: Robot Arm, Simulation">
 
 
@@ -557,7 +558,9 @@ Repositories: Robot Arm, Simulation">
 <li>Designing the arm in FreeCAD and 3D printing it</li>
 <li>Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server</li>
 </ul>
+<hr>
 <p>Repositories: Robot Arm, <a href="https://github.com/temperancee/robot_arm_kinematics_simulation">Simulation</a></p>
+<hr>
 <div class="pair-figure-shortcode">
         <figure>
             <video width="500" height="600"
@@ -596,6 +599,15 @@ Repositories: Robot Arm, Simulation">
 <p>I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot Modelling and Control by Spong, Hutchinson, and Vidyasagar. It&rsquo;s a pretty good book, but doesn&rsquo;t give away all the answers. The book focuses on the case of a 6DOF robot arm with a spherical wrist, which is one of the robots I added to my simulation, but the 5DOF case is slightly different. My 5DOF robot does not have the first joint in the spherical wrist, which essentially means the wrist cannot yaw independently of the base of the robot. This limits the orientations of the end-effector, but not their positions, and for many tasks, this is fine. It meant that I had to calculate the yaw as a function of the base angle, and then use the 6DOF solution. Various other edge cases and limitations, such as the fact that my robot&rsquo;s motors only rotate between 0 and 180 degrees, rather than a full 360, had to be accounted for in the code.</p>
 <h2 id="">The simulation</h2>
 <p>The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">model-view-controller</a> pattern, which keeps the code nice and organised.</p>
+<p>The simulation inclues options for simulating a 3DOF elbow manipulator, which forms the basis for the 5DOF and 6DOF manipulators, as well as the two more involved options. Below are videos of the 5 and 6DOF manipulators. You can see that the difference between the two is that the wrist cannot yaw independently of the &ldquo;shoulder&rdquo; of the arm in the 5DOF case, which as you can see in the video, results in the 5DOF arm being more limited in its choice of orientation for a given point (the yaw is coupled to the angle of the shoulder).</p>
+<div class="pair-figure-shortcode"><figure>
+            <img src="/projects/robot_arm/5DOF_manipulator_sim_hu_78178a460bca635c.gif" width="400" height="300" alt="">
+            <figcaption></figcaption>
+        </figure><figure>
+            <img src="/projects/robot_arm/6DOF_manipulator_sim_hu_b0378b94b31dea2c.gif" width="400" height="300" alt2="The 6DOF arm">
+            <figcaption>The 6DOF arm</figcaption>
+        </figure></div>
+
 <h2 id="">The CAD</h2>
 <p>The robot was designed using FreeCAD. I designed all the parts myself. While the robot works, there are a lot of things I would have done differently if I were to start over:</p>
 <ul>

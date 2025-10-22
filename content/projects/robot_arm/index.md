@@ -10,7 +10,10 @@ This page documents my work on building a robot arm. At a glance this project co
 - Designing the arm in FreeCAD and 3D printing it
 - Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
+---
 Repositories: Robot Arm, [Simulation](https://github.com/temperancee/robot_arm_kinematics_simulation)
+
+---
 
 <!-- {{< single_figure path=robot1.jpg width=600 alt="A photo of the robot arm" >}} -->
 
@@ -48,6 +51,17 @@ I learnt forward and inverse kinematics by reading chapters 2, 3, and 5 of Robot
 ## The simulation
 
 The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the [model-view-controller](https://en.wikipedia.org/wiki/Model–view–controller) pattern, which keeps the code nice and organised.
+
+The simulation inclues options for simulating a 3DOF elbow manipulator, which forms the basis for the 5DOF and 6DOF manipulators, as well as the two more involved options. Below are videos of the 5 and 6DOF manipulators. You can see that the difference between the two is that the wrist cannot yaw independently of the "shoulder" of the arm in the 5DOF case, which as you can see in the video, results in the 5DOF arm being more limited in its choice of orientation for a given point (the yaw is coupled to the angle of the shoulder).
+
+
+{{< pair_figure
+path=5DOF_manipulator_sim.gif
+path2=6DOF_manipulator_sim.gif
+width=400
+alt1="The 5DOF arm" 
+alt2="The 6DOF arm"
+>}}
 
 ## The CAD
 
