@@ -66,8 +66,7 @@ alt2="The 6DOF arm"
 ## The CAD
 
 The robot was designed using FreeCAD. I designed all the parts myself. While the robot works, there are a lot of things I would have done differently if I were to start over:
-- Figuring out a better way to manage spreadsheets - I often have to reuse certain values like the measurements of the motors, which means these values get copied over to multiple sheets
-- More importantly, the robot is very unstable. This was my first CAD design where knowledge of mechanical design techniques (which I possess very little of) played an important role. If I was to start over, I would like to buy some better motors, ideally ones where you can connect both sides of the motor to a joint. Since I wanted this first project to be cheap, this was sort of a necessary drawback.
+- Most importantly, the robot is very unstable. This was my first CAD design where knowledge of mechanical design techniques (which I possess very little of) played an important role. If I was to start over, I would like to buy some better motors, ideally ones where you can connect both sides of the motor to a joint. Since I wanted this first project to be cheap, this was sort of a necessary drawback.
 - The shoulder joint was designed to just slot into the base, this means there is a lot of wiggle, so the positions taken by the model are often off by a couple of millimetres.
 - The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position. For this reason, there aren't any videos of the robot actually picking anything up in this article.
 
