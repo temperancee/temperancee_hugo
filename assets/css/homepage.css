@@ -17,5 +17,7 @@
 }
 
 @media (max-width: 840px) {
-    margin: 0px 0px;
+    .home-body {
+        margin: 0px 0px;
+    }
 }
