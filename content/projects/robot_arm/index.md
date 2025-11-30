@@ -11,7 +11,7 @@ This page documents my work on building a robot arm. At a glance this project co
 - Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
 ---
-Repositories: Robot Arm, [Simulation](https://github.com/temperancee/robot_arm_kinematics_simulation)
+Repositories: [Robot Arm](github.com/temperancee/robot_arm), [Simulation](https://github.com/temperancee/robot_arm_kinematics_simulation)
 
 ---
 
@@ -59,7 +59,7 @@ The simulation inclues options for simulating a 3DOF elbow manipulator, which fo
 path=5DOF_manipulator_sim.gif
 path2=6DOF_manipulator_sim.gif
 width=400
-alt1="The 5DOF arm" 
+alt="The 5DOF arm" 
 alt2="The 6DOF arm"
 >}}
 
