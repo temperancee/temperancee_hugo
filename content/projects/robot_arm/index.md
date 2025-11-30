@@ -11,7 +11,7 @@ This page documents my work on building a robot arm. At a glance this project co
 - Using a Raspberry Pi Pico W to control the servo motors and communicate with the web server
 
 ---
-Repositories: [Robot Arm](github.com/temperancee/robot_arm), [Simulation](https://github.com/temperancee/robot_arm_kinematics_simulation)
+Repositories: [Robot Arm](https://github.com/temperancee/robot_arm), [Simulation](https://github.com/temperancee/robot_arm_kinematics_simulation)
 
 ---
 
