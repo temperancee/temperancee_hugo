@@ -28,36 +28,26 @@ Like my robot arm, this project comprises many parts:
 The goal of this section is simply to stabilise the quadcopter in the air, so it can hover. We can think about this as fixing the roll and pitch angles of the quadcopter to 0. Roll, pitch, and yaw angles tell us how much a body in 3D space has been rotated around each of the x, y, and z axes, as in the diagram below:
 <!-- diagram -->
 We will refer to these angles as Euler angles throughout this article, although technically they are not necessarily the same - see [Euler Angles](https://en.wikipedia.org/wiki/Euler_angles) for more details.
-We seek a way to measure the roll and pitch angles. We ignore the yaw, as we just want the drone to hover, and don't particularly care which way it faces (and from a more practical standpoint, measuring yaw requires a [magnetometer](https://en.wikipedia.org/wiki/Magnetometer), which are tricky to use, and make the drone more expensive than I need it to be). The sensor we use for this is the Intertial Measurement Unit (IMU), which is a combination of a gyroscope and an accelerometer (more expensive IMUs also include magnetometers, in which case they are called 9-axis IMUs, whereas a gyroscope accelerometer combo is a 6-axis IMU). The gyroscope measures angular _velocity_, and the accelerometer measures acceleration in the x, y, and z directions. These are of course, not what we want, but with a bit of maths we can turn both of these measurements into measurements of roll and pitch.
+We seek a way to measure the roll and pitch angles. We ignore the yaw, as we just want the drone to hover, and don't particularly care which way it faces (and from a more practical standpoint, measuring yaw requires a [magnetometer](https://en.wikipedia.org/wiki/Magnetometer), which are tricky to use, and make the drone more expensive than I need it to be). The sensor we use for this is the Intertial Measurement Unit (IMU), which is a combination of a gyroscope and an accelerometer (more expensive IMUs also include magnetometers, in which case they are called 9-axis IMUs, whereas a gyroscope and accelerometer combo is a 6-axis IMU). The gyroscope measures angular _velocity_, and the accelerometer measures acceleration in the x, y, and z directions. These are of course, not what we want, but with a bit of maths we can turn both of these measurements into measurements of roll and pitch.
 
 ### Deriving roll and pitch from the accelerometer and gyroscope
 
 Angular velocity is just the rate of change of our Euler angles, so by integrating the angular velocity of roll and pitch, we get our desired angles. We use Euler integration for this, leading us to the expression $$\phi_t = \phi_{t-1} + \phi^\prime_t\Delta t$$ where $\phi_t$ is the roll at time $t$, $\phi^\prime_t$ is the rate of change of the roll at time $t$ (this is what the gyroscope outputs), and $\Delta t$ is the time between each iteration (more on this later). We have the same equation for our pitch, $\theta$.
 
-The accelerometer measurements ...
-
-### The problem
-
-
-### Hidden Markov Models and the Bayes Filter
-
-Hidden Markov Models (HMM) can be used to model partially observable processes that evolve over time. By this we mean there are some unobserved random variables $X_t$ which we are interested in, but cannot observe, called the _latent_ variables, and observable variables $Y_t$ which depend on $X_t$ called measurement variables. We wish to make inferences about $X_t$ but only have access to $Y_t$, which may be, for example, measurements of $X_t$ corrupted by noise. A key property of the HMM is that $$\mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1}, ..., X_0 = x_0) = \mathbb{P}(X_t = x_t | X_{t-1} = x_{t-1})$$ that is, the probability of being in a particular state at time $t$ depends only on the previous state.
-
-In our case, the $x_t = \begin{pmatrix} \phi & \theta \end{pmatrix}^T$ are our _state_, the variables that characterise the state of our quadcopter (i.e., we only care about roll and pitch, so that is all that is included in the state, but if we cared about yaw, or x, y, z coordinates, those too would feature). We will discuss what exactly we model $y_t$ as in our situation a bit further down the line.
-
-For Hidden Markov Models that model sequential processes, we can predict the next state given our previous state estimate and the current measurement, $y_t$, using the [Bayes Filter](https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation). I am not going to go into details of the derivation, which can be found in Probabilistic Robotics by Sebastian Thrun. The gist is that using a model of how our previous state $x_{t-1} and a control chosen at time $t$, $u_t$, affect $x_t$, we update our beliefs about $x_t$. The control here, $u_t$ is a way that we can influence the state, for example, by increasing the speed of our drones propellers, we can make it move around. The second step in the Bayes Filter is to incorporate the measurement information $y_t$ into our beliefs. Through this process, we can estimate the next state, in our case, our roll and pitch angles.
+For the accelerometer measurements, we can use trigonometry. The derivations are detailed [here](https://mwrona.com/posts/accel-roll-pitch/). One thing to note about the derivation is that since we don't care about yaw, we essentially treat all yaws of a given orientation as equal, which allows us to simplify the Euler angle rotation matrix formulae and arrive at the form used in the linked article.
 
 ### The Kalman Filter
 
-What model should we use for how our measurment affects state and how previous state and control affects state? There are many answers to this, but one of the simplest ones is the Kalman Filter. The Kalman Filter assumes a linear relationship between the next state and the previous state and the control, with Gaussian noise. It also assumes a linear relationship between the state and measurment, again with Gaussian noise. This allows us to derive an analytical solution for the update rules given by the Bayes Filter, whereas in almost all other cases, the integrals we have to compute are intractable. 
+I will not go into detail about how the Kalman Filter works here, but I do have an article about it: [Kalman Filter]( {{< relref "blog/kalman_filter.md" >}}).
 
-We specify that $$x_t = A_t x_{t-1} + B_t u_t + \epsilon_t$$
+In this context, our state is the roll and pitch of the quadcopter. These two variables sit together in a 2D vector in our equations.
 
-Another point of note is that the state is not something we can observe directly, we can only attempt to measure it via the accelerometer and gyroscope, which are *noisy*, i.e., there is some random error associated with the measurements they give us. In this way, the Kalman Filter is an analogue of a Hidden Markov Model, except our latent variables (the hidden ones, in this case, the roll and pitch) are on a continuous state space, rather than a discrete one as is the case with a HMM (I think). 
+Applying the Kalman Filter to the problem of sensor fusion requires a seemingly odd interpretation of the control and measurement aspects of the Kalman Filter. We treat the angular velocity measurements from the gyroscope as controls, and the accelerometer-derived angle estimates as measurements. The idea here is that changing the motor speeds (what we would intuitively call the control in this situation) directly affects the angular velocity, and by setting $A_t = I, B_t = \Delta t I$, the Kalman Filter prediction formula becomes the Euler integration formula, which is why using Euler integration makes so much sense here.
 
-Formally, we assume that the
+The measurement step proceeds as we would expect, our measurement, $z_t$ is a vector containing the roll and pitch estimates derived from our acceleromenter measurements.
 
-In this context, our state is the roll and pitch of the quadcopter. These two variables sit together in a 2D vector in our equations. We cannot model the yaw of the quadcopter, because this would require a magnetometer, but fortunately, we can make do with just pitch and yaw for the purposes of making the quadcopter hover and move through the air (which was the original goal for this project).
+With the theory out of the way, we can turn to practical aspects. I initialised the variance matrices to values I found other people using for quadcopter state estimation and they seemed to work fine. The accelerometer produces measurements more infrequently than the gyroscope, so the prediction step of the Kalman Filter runs every 2ms, and the measurement step every 10ms. These steps are implemented as FreeRTOS tasks and are executed using timers.
+
 
 
 ## The PCB design
