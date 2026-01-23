@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+        <loc>http://localhost:1313/blog/</loc>
+        <lastmod>2026-01-01T16:20:26+00:00</lastmod>
+      </url><url>
+        <loc>http://localhost:1313/blog/kalman_filter/</loc>
+        <lastmod>2026-01-01T16:20:26+00:00</lastmod>
+      </url><url>
         <loc>http://localhost:1313/projects/diy_quadcopter/</loc>
         <lastmod>2025-10-22T16:37:02+01:00</lastmod>
       </url><url>
@@ -13,9 +19,6 @@
       </url><url>
         <loc>http://localhost:1313/</loc>
         <lastmod>2025-07-21T21:50:13+01:00</lastmod>
-      </url><url>
-        <loc>http://localhost:1313/blog/</loc>
-        <lastmod>2025-07-08T22:23:51+01:00</lastmod>
       </url><url>
         <loc>http://localhost:1313/blog/micropython_x_neovim/</loc>
         <lastmod>2025-07-08T22:23:51+01:00</lastmod>
