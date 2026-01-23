@@ -4,7 +4,7 @@ draft = false
 title = 'About'
 +++
 
-My name is Myles, I'm a fourth year mathematics and statistics student at Durham University with a strong interest in robotics and specifically computer vision applications in robotics. Last year I worked as an Operational Researcher in the Civil Service, helping to develop a static microsimulation model.
+My name is Myles, I'm a fourth year mathematics and statistics student at Durham University with a strong interest in robotics and specifically reinforcement learning applications in robotics. Last year I worked as an Operational Researcher in the Civil Service, helping to develop a static microsimulation model.
 
 On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, maths, and Linux, amongst other things.
 
