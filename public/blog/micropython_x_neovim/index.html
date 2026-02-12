@@ -568,12 +568,12 @@ There are many LSPs for Python, some of which you can read about by opening Neov
 <h2 id="">Neovim LSP</h2>
 <p>There are many LSPs for Python, some of which you can read about by opening Neovim and running <code>:h lspconfig-all</code>. I use Pyright, which works pretty well, and seems to be the most popular choice.</p>
 <p>If you use Mason, you can download it with that, or if you&rsquo;re on Arch like me, a simple</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S pyright
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S pyright
 </span></span></code></pre></div><p>will suffice. For other operating systems, just use your standard package manager.</p>
 <p>You can also install Pyright via Pip if you&rsquo;d like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install pyright
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install pyright
 </span></span></code></pre></div><p>Now we need to enable Pyright in our <code>init.lua</code>, or alternative, a separate Lua file that we <code>require</code> in <code>init.lua</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>vim.lsp.enable(<span style="color:#a6d189">&#39;pyright&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>vim.lsp.enable(<span style="color:#a6d189">&#39;pyright&#39;</span>)
 </span></span></code></pre></div><p>Run <code>:h lspconfig-all</code> and read the Pyright section for details on configuring the LSP - for most use cases, just enabling Pyright should suffice.</p>
 <h3 id="">Micropython import errors, and stubs to the rescue</h3>
 <p>Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. <code>machine</code>.
@@ -583,16 +583,16 @@ However, when importing these libraries, we get errors in our editor, because th
 <p>Thankfully, there exists <a href="https://github.com/Josverl/micropython-stubs">a large repository of stubs for various micropython compatible boards</a>, so we don&rsquo;t have to create these files ourselves. Getting these stubs to work involves first installing them, then configuring Pyright to see them.</p>
 <h4 id="">Installation</h4>
 <p>We install the stubs with Pip, so you may have to create a virtual environment to use them (due to global Pip installs being forbidden by default in externally managed (i.e., by a package manager) environments - see <a href="https://packaging.python.org/en/latest/specifications/externally-managed-environments/#externally-managed-environments">this document</a> for details).</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv your-venv-name
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv your-venv-name
 </span></span><span style="display:flex;"><span><span style="color:#99d1db">source</span> your-venv-name/bin/activate
 </span></span></code></pre></div><p>These commands may differ depending on your operating system, see <a href="https://docs.python.org/3/library/venv.html">the docs</a> for more details. Once the venv is created, we can either install the stubs directly, or create a <code>requirements-dev.txt</code> file. We install the stubs to a folder called <code>typings</code>.</p>
 <pre tabindex="0"><code>#requirements-dev.txt
 micropython-rp2-rpi_pico_w-stubs==1.25.0.*
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements-dev.txt --target typings
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements-dev.txt --target typings
 </span></span></code></pre></div><p>For more detail, see the <a href="https://micropython-stubs.readthedocs.io/en/main/11_install_stubs.html">stubs documentation</a>.</p>
 <h4 id="">Configuring Pyright</h4>
 <p>Pyright is configured using either a <code>pyproject.toml</code> or <code>pyrightconfig.json</code> file. I use the toml file. There are various settings you can use to configure Pyright, documented <a href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">here</a>. Here is my <code>pyproject.toml</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[tool.pyright]
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[tool.pyright]
 </span></span><span style="display:flex;"><span>stubPath = <span style="color:#a6d189">&#34;typings&#34;</span>
 </span></span><span style="display:flex;"><span>venvPath = <span style="color:#a6d189">&#34;.&#34;</span>
 </span></span><span style="display:flex;"><span>venv = <span style="color:#a6d189">&#34;micropython_venv&#34;</span>
@@ -608,7 +608,7 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 <li><code>reportMissingModuleSource</code> is a warning that appears when stubs are detected but their implementation files cannot be found. Since our implementation files are all stored on the device running MicroPython, we need to disable this warning.</li>
 </ul>
 <p>All paths are relative to the root of the project. The root of the project is determined based on the <code>root-markers</code> option set in your LSP configuration of Pyright. By default, this is <code>{ &quot;pyproject.toml&quot;, &quot;setup.py&quot;, &quot;setup.cfg&quot;, &quot;requirements.txt&quot;, &quot;Pipfile&quot;, &quot;pyrightconfig.json&quot;, &quot;.git&quot; }</code>. I personally have mine set to the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>vim.lsp.config(<span style="color:#a6d189">&#39;pyright&#39;</span>, {
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>vim.lsp.config(<span style="color:#a6d189">&#39;pyright&#39;</span>, {
 </span></span><span style="display:flex;"><span>    root<span style="color:#99d1db;font-weight:bold">-</span>markers <span style="color:#99d1db;font-weight:bold">=</span> { <span style="color:#a6d189">&#34;pyproject.toml&#34;</span>, <span style="color:#a6d189">&#34;pyrightconfig.json&#34;</span> }
 </span></span><span style="display:flex;"><span>})
 </span></span><span style="display:flex;"><span>vim.lsp.enable(<span style="color:#a6d189">&#39;pyright&#39;</span>)
@@ -618,19 +618,19 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 <p>Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you&rsquo;re lucky, they might show you how to use VSCode (although I&rsquo;ve only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about <code>rshell</code>.</p>
 <p><code>rshell</code> is a command line utility that allows you to run commands on your board running Micropython. For full details, see its <a href="https://github.com/dhylands/rshell">github page</a>. In this section, I&rsquo;m just going to cover uploading and running files.</p>
 <p><code>rshell</code> is installed through <code>pip</code>, which means we&rsquo;ll need our venv again.</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#99d1db">source</span> your-venv-name/bin/activate
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#99d1db">source</span> your-venv-name/bin/activate
 </span></span><span style="display:flex;"><span>pip install rshell
 </span></span></code></pre></div><h3 id="">Uploading Code</h3>
 <p>Micropython only runs programs on start-up when you copy them onto the board and name them <code>main.py</code>. To accomplish this, open a terminal, make sure <code>rshell</code> is installed (and, if necessary, make sure your <code>venv</code> is active), then run</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rshell -p /dev/ttyACM0
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rshell -p /dev/ttyACM0
 </span></span></code></pre></div><p>which will put you into <code>rshell</code>. Your board&rsquo;s serial port might differ from <code>/dev/ttyACM0</code>, in which case, change it accordingly.</p>
 <p>From here, we need to copy over our program to the board. Files on the board are stored under <code>/pyboard/</code>, and you can see files on your system with <code>ls</code>, just like in a normal shell. Bringing this together:</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp my_program.py /pyboard/main.py
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp my_program.py /pyboard/main.py
 </span></span></code></pre></div><p>And just like that, your program is on your board! Reset your board and it&rsquo;ll start running.</p>
 <h3 id="">Using the REPL for debugging</h3>
 <p>I am not particularly well versed in the art of debugging tools - I&rsquo;m still at the stage where print statements here and there typically get the job done. As such, this section is pretty much just dedicated to allowing you to see the printed output of your programs.</p>
 <p>We once again make use of <code>rshell</code>. The trick here is to give your program an explicit main function. In Python, that is done via</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ca9ee6">def</span> <span style="color:#8caaee">main</span>():
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ca9ee6">def</span> <span style="color:#8caaee">main</span>():
 </span></span><span style="display:flex;"><span>    <span style="color:#737994;font-style:italic"># Your main function (doesn&#39;t actually have to be called main)</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ca9ee6">if</span> <span style="color:#f2d5cf">__name__</span> <span style="color:#99d1db;font-weight:bold">==</span> <span style="color:#a6d189">&#39;__main__&#39;</span>:

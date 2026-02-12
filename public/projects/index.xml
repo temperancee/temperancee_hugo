@@ -125,10 +125,10 @@ We seek a way to measure the roll and pitch angles. We ignore the yaw, as we jus
 &lt;p&gt;The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;model-view-controller&lt;/a&gt; pattern, which keeps the code nice and organised.&lt;/p&gt;
 &lt;p&gt;The simulation inclues options for simulating a 3DOF elbow manipulator, which forms the basis for the 5DOF and 6DOF manipulators, as well as the two more involved options. Below are videos of the 5 and 6DOF manipulators. You can see that the difference between the two is that the wrist cannot yaw independently of the &amp;ldquo;shoulder&amp;rdquo; of the arm in the 5DOF case, which as you can see in the video, results in the 5DOF arm being more limited in its choice of orientation for a given point (the yaw is coupled to the angle of the shoulder).&lt;/p&gt;
 &lt;div class=&#34;pair-figure-shortcode&#34;&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/5DOF_manipulator_sim_hu_78178a460bca635c.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt=&#34;The 5DOF arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/5DOF_manipulator_sim_hu_24df64f141f21b64.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt=&#34;The 5DOF arm&#34;&gt;
             &lt;figcaption&gt;The 5DOF arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/6DOF_manipulator_sim_hu_b0378b94b31dea2c.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt2=&#34;The 6DOF arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/6DOF_manipulator_sim_hu_af630f98cf81dc0e.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt2=&#34;The 6DOF arm&#34;&gt;
             &lt;figcaption&gt;The 6DOF arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
 
@@ -140,10 +140,10 @@ We seek a way to measure the roll and pitch angles. We ignore the yaw, as we jus
 &lt;li&gt;The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position. For this reason, there aren&amp;rsquo;t any videos of the robot actually picking anything up in this article.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;pair-figure-shortcode&#34;&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_376a5dc76479bc70.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_c204f9940b3c7597.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_alt_pos_hu_2e8fb6b295fcb0a.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot in a different position&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_alt_pos_hu_5fc855b2381096a4.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot in a different position&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot in a different position&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
 

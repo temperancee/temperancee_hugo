@@ -19,6 +19,19 @@
     
     
     <item>
+      <title>My Dissertation</title>
+      <link>/blog/my_dissertation/</link>
+      <pubDate>Thu, 12 Feb 2026 21:51:04 +0000</pubDate>
+      
+      <guid>/blog/my_dissertation/</guid>
+      <description>
+&lt;div&gt;
+    &lt;a href=&#34;poster.pdf&#34;&gt;Dissertation Poster&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Kalman Filter</title>
       <link>/blog/kalman_filter/</link>
       <pubDate>Thu, 01 Jan 2026 16:20:26 +0000</pubDate>
@@ -143,10 +156,10 @@ We seek a way to measure the roll and pitch angles. We ignore the yaw, as we jus
 &lt;p&gt;The simulation program uses matplotlib to plot lines representing the links of the robot arm, as well as the coordinate frames of each joint. This was my first time writing a non-trivial object-oriented program, and I learnt lots about classes in Python and structuring code in general. It makes use of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;model-view-controller&lt;/a&gt; pattern, which keeps the code nice and organised.&lt;/p&gt;
 &lt;p&gt;The simulation inclues options for simulating a 3DOF elbow manipulator, which forms the basis for the 5DOF and 6DOF manipulators, as well as the two more involved options. Below are videos of the 5 and 6DOF manipulators. You can see that the difference between the two is that the wrist cannot yaw independently of the &amp;ldquo;shoulder&amp;rdquo; of the arm in the 5DOF case, which as you can see in the video, results in the 5DOF arm being more limited in its choice of orientation for a given point (the yaw is coupled to the angle of the shoulder).&lt;/p&gt;
 &lt;div class=&#34;pair-figure-shortcode&#34;&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/5DOF_manipulator_sim_hu_78178a460bca635c.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt=&#34;The 5DOF arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/5DOF_manipulator_sim_hu_24df64f141f21b64.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt=&#34;The 5DOF arm&#34;&gt;
             &lt;figcaption&gt;The 5DOF arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/6DOF_manipulator_sim_hu_b0378b94b31dea2c.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt2=&#34;The 6DOF arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/6DOF_manipulator_sim_hu_af630f98cf81dc0e.gif&#34; width=&#34;400&#34; height=&#34;300&#34; alt2=&#34;The 6DOF arm&#34;&gt;
             &lt;figcaption&gt;The 6DOF arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
 
@@ -158,10 +171,10 @@ We seek a way to measure the roll and pitch angles. We ignore the yaw, as we jus
 &lt;li&gt;The claw placement currently does not follow the Denavitt-Hartenberg convention. This was not a problem, until I implemented inverse kinematics. What it means in practice is that the claw position is always slightly off from the desired position. For this reason, there aren&amp;rsquo;t any videos of the robot actually picking anything up in this article.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;pair-figure-shortcode&#34;&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_376a5dc76479bc70.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_hu_c204f9940b3c7597.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt=&#34;CAD model of the robot arm&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot arm&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;figure&gt;
-            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_alt_pos_hu_2e8fb6b295fcb0a.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot in a different position&#34;&gt;
+            &lt;img src=&#34;http://localhost:1313/projects/robot_arm/robot_arm_cad_model_alt_pos_hu_5fc855b2381096a4.png&#34; width=&#34;400&#34; height=&#34;400&#34; alt2=&#34;CAD model of the robot in a different position&#34;&gt;
             &lt;figcaption&gt;CAD model of the robot in a different position&lt;/figcaption&gt;
         &lt;/figure&gt;&lt;/div&gt;
 
@@ -199,12 +212,12 @@ We seek a way to measure the roll and pitch angles. We ignore the yaw, as we jus
 &lt;h2 id=&#34;&#34;&gt;Neovim LSP&lt;/h2&gt;
 &lt;p&gt;There are many LSPs for Python, some of which you can read about by opening Neovim and running &lt;code&gt;:h lspconfig-all&lt;/code&gt;. I use Pyright, which works pretty well, and seems to be the most popular choice.&lt;/p&gt;
 &lt;p&gt;If you use Mason, you can download it with that, or if you&amp;rsquo;re on Arch like me, a simple&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S pyright
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S pyright
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;will suffice. For other operating systems, just use your standard package manager.&lt;/p&gt;
 &lt;p&gt;You can also install Pyright via Pip if you&amp;rsquo;d like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install pyright
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install pyright
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we need to enable Pyright in our &lt;code&gt;init.lua&lt;/code&gt;, or alternative, a separate Lua file that we &lt;code&gt;require&lt;/code&gt; in &lt;code&gt;init.lua&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.enable(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.enable(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run &lt;code&gt;:h lspconfig-all&lt;/code&gt; and read the Pyright section for details on configuring the LSP - for most use cases, just enabling Pyright should suffice.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;Micropython import errors, and stubs to the rescue&lt;/h3&gt;
 &lt;p&gt;Micropython is mostly identical to the standard CPython implementation, just with some extra libraries added for working with microcontrollers, e.g. &lt;code&gt;machine&lt;/code&gt;.
@@ -214,16 +227,16 @@ However, when importing these libraries, we get errors in our editor, because th
 &lt;p&gt;Thankfully, there exists &lt;a href=&#34;https://github.com/Josverl/micropython-stubs&#34;&gt;a large repository of stubs for various micropython compatible boards&lt;/a&gt;, so we don&amp;rsquo;t have to create these files ourselves. Getting these stubs to work involves first installing them, then configuring Pyright to see them.&lt;/p&gt;
 &lt;h4 id=&#34;&#34;&gt;Installation&lt;/h4&gt;
 &lt;p&gt;We install the stubs with Pip, so you may have to create a virtual environment to use them (due to global Pip installs being forbidden by default in externally managed (i.e., by a package manager) environments - see &lt;a href=&#34;https://packaging.python.org/en/latest/specifications/externally-managed-environments/#externally-managed-environments&#34;&gt;this document&lt;/a&gt; for details).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 -m venv your-venv-name
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 -m venv your-venv-name
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These commands may differ depending on your operating system, see &lt;a href=&#34;https://docs.python.org/3/library/venv.html&#34;&gt;the docs&lt;/a&gt; for more details. Once the venv is created, we can either install the stubs directly, or create a &lt;code&gt;requirements-dev.txt&lt;/code&gt; file. We install the stubs to a folder called &lt;code&gt;typings&lt;/code&gt;.&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#requirements-dev.txt
 micropython-rp2-rpi_pico_w-stubs==1.25.0.*
-&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -r requirements-dev.txt --target typings
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -r requirements-dev.txt --target typings
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For more detail, see the &lt;a href=&#34;https://micropython-stubs.readthedocs.io/en/main/11_install_stubs.html&#34;&gt;stubs documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;&#34;&gt;Configuring Pyright&lt;/h4&gt;
 &lt;p&gt;Pyright is configured using either a &lt;code&gt;pyproject.toml&lt;/code&gt; or &lt;code&gt;pyrightconfig.json&lt;/code&gt; file. I use the toml file. There are various settings you can use to configure Pyright, documented &lt;a href=&#34;https://github.com/microsoft/pyright/blob/main/docs/configuration.md&#34;&gt;here&lt;/a&gt;. Here is my &lt;code&gt;pyproject.toml&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[tool.pyright]
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[tool.pyright]
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stubPath = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;typings&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;venvPath = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;venv = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;micropython_venv&amp;#34;&lt;/span&gt;
@@ -239,7 +252,7 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 &lt;li&gt;&lt;code&gt;reportMissingModuleSource&lt;/code&gt; is a warning that appears when stubs are detected but their implementation files cannot be found. Since our implementation files are all stored on the device running MicroPython, we need to disable this warning.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;All paths are relative to the root of the project. The root of the project is determined based on the &lt;code&gt;root-markers&lt;/code&gt; option set in your LSP configuration of Pyright. By default, this is &lt;code&gt;{ &amp;quot;pyproject.toml&amp;quot;, &amp;quot;setup.py&amp;quot;, &amp;quot;setup.cfg&amp;quot;, &amp;quot;requirements.txt&amp;quot;, &amp;quot;Pipfile&amp;quot;, &amp;quot;pyrightconfig.json&amp;quot;, &amp;quot;.git&amp;quot; }&lt;/code&gt;. I personally have mine set to the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.config(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;, {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.config(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;, {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    root&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;-&lt;/span&gt;markers &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;pyproject.toml&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;pyrightconfig.json&amp;#34;&lt;/span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim.lsp.enable(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;)
@@ -249,19 +262,19 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
 &lt;p&gt;Almost every Micropython tutorial you will see will simply tell you to install Thonny to upload code - if you&amp;rsquo;re lucky, they might show you how to use VSCode (although I&amp;rsquo;ve only seen this for RP2040 based boards). If you search for long enough, however, you may be lucky enough to learn about &lt;code&gt;rshell&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is a command line utility that allows you to run commands on your board running Micropython. For full details, see its &lt;a href=&#34;https://github.com/dhylands/rshell&#34;&gt;github page&lt;/a&gt;. In this section, I&amp;rsquo;m just going to cover uploading and running files.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;rshell&lt;/code&gt; is installed through &lt;code&gt;pip&lt;/code&gt;, which means we&amp;rsquo;ll need our venv again.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; your-venv-name/bin/activate
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install rshell
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;&#34;&gt;Uploading Code&lt;/h3&gt;
 &lt;p&gt;Micropython only runs programs on start-up when you copy them onto the board and name them &lt;code&gt;main.py&lt;/code&gt;. To accomplish this, open a terminal, make sure &lt;code&gt;rshell&lt;/code&gt; is installed (and, if necessary, make sure your &lt;code&gt;venv&lt;/code&gt; is active), then run&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rshell -p /dev/ttyACM0
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rshell -p /dev/ttyACM0
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;which will put you into &lt;code&gt;rshell&lt;/code&gt;. Your board&amp;rsquo;s serial port might differ from &lt;code&gt;/dev/ttyACM0&lt;/code&gt;, in which case, change it accordingly.&lt;/p&gt;
 &lt;p&gt;From here, we need to copy over our program to the board. Files on the board are stored under &lt;code&gt;/pyboard/&lt;/code&gt;, and you can see files on your system with &lt;code&gt;ls&lt;/code&gt;, just like in a normal shell. Bringing this together:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp my_program.py /pyboard/main.py
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp my_program.py /pyboard/main.py
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And just like that, your program is on your board! Reset your board and it&amp;rsquo;ll start running.&lt;/p&gt;
 &lt;h3 id=&#34;&#34;&gt;Using the REPL for debugging&lt;/h3&gt;
 &lt;p&gt;I am not particularly well versed in the art of debugging tools - I&amp;rsquo;m still at the stage where print statements here and there typically get the job done. As such, this section is pretty much just dedicated to allowing you to see the printed output of your programs.&lt;/p&gt;
 &lt;p&gt;We once again make use of &lt;code&gt;rshell&lt;/code&gt;. The trick here is to give your program an explicit main function. In Python, that is done via&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#8caaee&#34;&gt;main&lt;/span&gt;():
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#8caaee&#34;&gt;main&lt;/span&gt;():
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# Your main function (doesn&amp;#39;t actually have to be called main)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;:
@@ -281,7 +294,7 @@ micropython-rp2-rpi_pico_w-stubs==1.25.0.*
       <pubDate>Wed, 18 Jun 2025 19:46:13 +0100</pubDate>
       
       <guid>/about/</guid>
-      <description>&lt;p&gt;My name is Myles, I&amp;rsquo;m a fourth year mathematics and statistics student at Durham University with a strong interest in robotics and specifically computer vision applications in robotics. Last year I worked as an Operational Researcher in the Civil Service, helping to develop a static microsimulation model.&lt;/p&gt;
+      <description>&lt;p&gt;My name is Myles, I&amp;rsquo;m a fourth year mathematics and statistics student at Durham University with a strong interest in robotics and specifically reinforcement learning applications in robotics. Last year I worked as an Operational Researcher in the Civil Service, helping to develop a static microsimulation model.&lt;/p&gt;
 &lt;p&gt;On this website you can expect to find documentation of my projects, as well as some more general blog posts relating to programming, robotics, maths, and Linux, amongst other things.&lt;/p&gt;
 &lt;p&gt;Enjoy your stay.&lt;/p&gt;
 </description>
