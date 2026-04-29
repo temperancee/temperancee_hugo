@@ -13,10 +13,30 @@
     
 
     
-    <lastBuildDate>Wed, 22 Oct 2025 16:37:02 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 12 Feb 2026 21:51:04 +0000</lastBuildDate>
     
     <atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>My Dissertation</title>
+      <link>/projects/my_dissertation/</link>
+      <pubDate>Thu, 12 Feb 2026 21:51:04 +0000</pubDate>
+      
+      <guid>/projects/my_dissertation/</guid>
+      <description>
+&lt;div&gt;
+    &lt;a href=&#34;poster.pdf&#34;&gt;Dissertation Poster&lt;/a&gt;
+&lt;/div&gt;
+
+
+Below is a video of 30 robots flocking around 50 objects to reach a desired target. These robots are trained using Reinforcment Learning. Specifically, they are trained using the Independent Proximal Policy Optimisation (IPPO) algorithm, using multi-layer perceptron policies and value functions. More details will be added to this page shortly, (once I actually finish writing my dissertation...)
+
+&lt;div&gt;
+    &lt;a href=&#34;flocking_30_agents_50_obstacles.gif&#34;&gt;Watch the robots flock!&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Diy Quadcopter</title>

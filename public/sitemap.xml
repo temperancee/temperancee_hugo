@@ -8,16 +8,16 @@
         <loc>http://localhost:1313/blog/my_robotics_journey/</loc>
         <lastmod>2026-02-21T10:02:04+00:00</lastmod>
       </url><url>
-        <loc>http://localhost:1313/blog/my_dissertation/</loc>
+        <loc>http://localhost:1313/projects/my_dissertation/</loc>
+        <lastmod>2026-02-12T21:51:04+00:00</lastmod>
+      </url><url>
+        <loc>http://localhost:1313/projects/</loc>
         <lastmod>2026-02-12T21:51:04+00:00</lastmod>
       </url><url>
         <loc>http://localhost:1313/blog/kalman_filter/</loc>
         <lastmod>2026-01-01T16:20:26+00:00</lastmod>
       </url><url>
         <loc>http://localhost:1313/projects/diy_quadcopter/</loc>
-        <lastmod>2025-10-22T16:37:02+01:00</lastmod>
-      </url><url>
-        <loc>http://localhost:1313/projects/</loc>
         <lastmod>2025-10-22T16:37:02+01:00</lastmod>
       </url><url>
         <loc>http://localhost:1313/projects/robot_arm/</loc>
