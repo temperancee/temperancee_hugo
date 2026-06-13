@@ -59,6 +59,12 @@ identifier = "blog"
 url = "/blog/"
 weight = 4
 
+[[menu.main]]
+name = "CV"
+identifier = "CV"
+url = "/myles_foy_cv.pdf"
+weight = 4
+
 [markup.goldmark]
     [markup.goldmark.renderer]
         unsafe = false # Enable unsafe mode to have a better experience
@@ -67,3 +73,6 @@ weight = 4
 
 [markup.highlight]
 style              = 'catppuccin-frappe' # Find more style at here: https://swapoff.org/chroma/playground/
+
+[security]
+allowContent = ['.*']
